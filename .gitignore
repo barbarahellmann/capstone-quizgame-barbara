@@ -1,0 +1,12 @@
+.idea
+*.iml
+
+#BACKEND
+backend/HELP.md
+backend/target/
+
+#FRONTEND
+frontend/node_modules
+frontend/dist
+frontend/dist-ssr
+frontend/*.local
