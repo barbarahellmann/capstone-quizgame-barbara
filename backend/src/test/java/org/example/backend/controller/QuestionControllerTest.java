@@ -1,4 +1,4 @@
-package org.example.backend;
+package org.example.backend.controller;
 
 
 import org.example.backend.model.Question;
@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class QuestionIntegrationTest {
+class QuestionControllerTest {
 
     @Autowired
     private MockMvc mvc;
