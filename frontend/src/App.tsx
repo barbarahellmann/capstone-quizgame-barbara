@@ -2,9 +2,7 @@
 function App() {
 
   return (
-    <>
-        <h1>Ich krieg die Kriese</h1>
-    </>
+         <h1>Ich krieg die Kriese</h1>
   )
 }
 
