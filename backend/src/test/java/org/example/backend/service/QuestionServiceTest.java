@@ -19,9 +19,9 @@ class QuestionServiceTest {
     @Test
     void getAllQuestions_shouldReturnList() {
     //GIVEN
-    Question question1 = new Question(1, "question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
-    Question question2 = new Question(2, "question2", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
-    Question question3 = new Question(3, "question3", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+    Question question1 = new Question("1", "question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+    Question question2 = new Question("2", "question2", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+    Question question3 = new Question("3", "question3", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
     List<Question> expected = List.of(question1, question2, question3);
 
     when(mockRepo.findAll()).thenReturn(expected);

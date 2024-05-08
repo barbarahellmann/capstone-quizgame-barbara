@@ -1,16 +1,15 @@
 package org.example.backend.controller;
 
 
+
 import lombok.RequiredArgsConstructor;
 import org.example.backend.dto.QuestionDTO;
 import org.example.backend.model.NewQuestion;
 import org.example.backend.model.Question;
-import org.example.backend.repository.QuestionRepository;
 import org.example.backend.service.QuestionService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.*;
 
 
 @RestController
