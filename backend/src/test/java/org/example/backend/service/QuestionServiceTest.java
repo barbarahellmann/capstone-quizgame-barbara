@@ -33,4 +33,25 @@ class QuestionServiceTest {
     verify(mockRepo).findAll();
     assertEquals(expected, actual);
     }
+
+
+    @Test
+    void save_shouldReturnQuestion() {
+        // GIVEN
+        Question saveQuestion1 = new Question("1", "question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+        Question saveQuestion2 = new Question("2", "question2", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+        List<Question> expected = List.of(saveQuestion1, saveQuestion2);
+
+        when(mockRepo.save("1", "question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200
+
+        )).thenReturn(expected);
+
+        //WHEN
+        List<Question> actual = mockService.getAllQuestions();
+
+        //THEN
+        verify(mockRepo).findAll();
+        assertEquals(expected, actual);
+    }
+
 }

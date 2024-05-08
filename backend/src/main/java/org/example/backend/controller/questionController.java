@@ -22,6 +22,7 @@ public class questionController {
 
     @GetMapping
     public List<QuestionDTO> getAllQuestions() {
+
         List<Question> questions = service.getAllQuestions();
         return questions.stream()
                 .map(question -> new QuestionDTO(

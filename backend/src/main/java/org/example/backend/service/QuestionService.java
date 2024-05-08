@@ -21,14 +21,9 @@ public class QuestionService {
     }
 
     public Question save(NewQuestion newQuestion) {
-       Question question = new Question(
-               UUID.randomUUID().toString(),
-               newQuestion.question(),
-               newQuestion.correctAnswer(),
-               newQuestion.wrongAnswer1(),
-               newQuestion.wrongAnswer2(),
-               newQuestion.wrongAnswer3(),
-               newQuestion.points());
-       return repo.save(question);
+       Question question = newQuestion.wi .withId(idService.generateUUID());
+       repo.save(question);
+       return repo.findById(question.id()).orElseThrow();
+
     }
 }
