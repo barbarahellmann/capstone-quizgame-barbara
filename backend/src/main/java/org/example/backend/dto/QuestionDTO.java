@@ -1,7 +1,6 @@
-package org.example.backend.model;
+package org.example.backend.dto;
 
-public record Question(
-
+public record QuestionDTO(
         String id,
         String question,
         String correctAnswer,
@@ -9,6 +8,6 @@ public record Question(
         String wrongAnswer2,
         String wrongAnswer3,
         int points
-) {
 
+) {
 }

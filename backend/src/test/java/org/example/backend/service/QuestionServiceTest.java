@@ -11,8 +11,8 @@ import static org.mockito.Mockito.*;
 
 class QuestionServiceTest {
 
-    QuestionRepository mockRepo =  mock(QuestionRepository.class);
-    QuestionService questionService = new QuestionService(mockRepo);
+    private final QuestionRepository mockRepo =  mock(QuestionRepository.class);
+    private final QuestionService mockService = new QuestionService(mockRepo);
 
 
     // findAll Methode testen indem 3 dummy Fragen in eine Liste gepackt werden
@@ -27,7 +27,7 @@ class QuestionServiceTest {
     when(mockRepo.findAll()).thenReturn(expected);
 
     //WHEN
-    List<Question> actual = questionService.getAllQuestions();
+    List<Question> actual = mockService.getAllQuestions();
 
     //THEN
     verify(mockRepo).findAll();
