@@ -5,6 +5,7 @@ import org.example.backend.repository.QuestionRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -12,7 +13,8 @@ import static org.mockito.Mockito.*;
 class QuestionServiceTest {
 
     private final QuestionRepository mockRepo =  mock(QuestionRepository.class);
-    private final QuestionService mockService = new QuestionService(mockRepo);
+    private final IdService idMock = mock(IdService.class);
+    private final QuestionService mockService = new QuestionService(mockRepo, idMock);
 
 
     // findAll Methode testen indem 3 dummy Fragen in eine Liste gepackt werden
@@ -38,20 +40,20 @@ class QuestionServiceTest {
     @Test
     void save_shouldReturnQuestion() {
         // GIVEN
-        Question saveQuestion1 = new Question("1", "question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
-        Question saveQuestion2 = new Question("2", "question2", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
-        List<Question> expected = List.of(saveQuestion1, saveQuestion2);
-
-        when(mockRepo.save("1", "question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200
-
-        )).thenReturn(expected);
+        Question questionToSave = new Question("abc", "question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+        Question expected = new Question("1", "question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+        when(idMock.generateUUID()).thenReturn("1");
+        when(mockRepo.findByID("1")).thenReturn(Optional.of(expected));
 
         //WHEN
-        List<Question> actual = mockService.getAllQuestions();
+        Question actual = mockService.save(questionToSave);
 
         //THEN
-        verify(mockRepo).findAll();
         assertEquals(expected, actual);
+        verify(idMock).genrateUUID();
+        verify(mockRepo).save();
+
+
     }
 
 }
