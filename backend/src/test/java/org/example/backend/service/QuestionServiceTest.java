@@ -14,7 +14,7 @@ class QuestionServiceTest {
 
     private final QuestionRepository mockRepo =  mock(QuestionRepository.class);
     private final IdService idMock = mock(IdService.class);
-    private final QuestionService mockService = new QuestionService(mockRepo, idMock);
+    private final QuestionService questionService = new QuestionService(mockRepo, idMock);
 
 
     // findAll Methode testen indem 3 dummy Fragen in eine Liste gepackt werden
@@ -29,7 +29,7 @@ class QuestionServiceTest {
     when(mockRepo.findAll()).thenReturn(expected);
 
     //WHEN
-    List<Question> actual = mockService.getAllQuestions();
+    List<Question> actual = questionService.getAllQuestions();
 
     //THEN
     verify(mockRepo).findAll();
@@ -43,17 +43,15 @@ class QuestionServiceTest {
         Question questionToSave = new Question("abc", "question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
         Question expected = new Question("1", "question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
         when(idMock.generateUUID()).thenReturn("1");
-        when(mockRepo.findByID("1")).thenReturn(Optional.of(expected));
+        when(mockRepo.save(any(Question.class))).thenReturn(expected);
 
         //WHEN
-        Question actual = mockService.save(questionToSave);
+        Question actual = questionService.save(questionToSave);
 
         //THEN
+        verify(idMock).generateUUID();
+        verify(mockRepo).save(any(Question.class));
         assertEquals(expected, actual);
-        verify(idMock).genrateUUID();
-        verify(mockRepo).save();
-
-
     }
 
 }

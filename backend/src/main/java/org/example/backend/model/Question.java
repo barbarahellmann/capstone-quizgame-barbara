@@ -1,8 +1,10 @@
 package org.example.backend.model;
 
+import lombok.With;
+
 public record Question(
 
-        String id,
+        @With String id,
         String question,
         String correctAnswer,
         String wrongAnswer1,

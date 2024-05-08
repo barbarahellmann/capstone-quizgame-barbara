@@ -20,14 +20,6 @@ public class QuestionService {
 
     public Question save(Question newQuestion) {
         Question temp = newQuestion.withId(idService.generateUUID());
-        repo.save(temp);
-        return repo.findById(temp.id()).orElseThrow();
-
-
-//        newQuestion.setId(idService.generateUUID());
-//        repo.save(newQuestion);
-//        return newQuestion;
-
-
+        return repo.save(temp);
     }
 }
