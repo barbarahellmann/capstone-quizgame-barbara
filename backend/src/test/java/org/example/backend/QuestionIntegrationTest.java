@@ -30,7 +30,7 @@ public class QuestionIntegrationTest {
                 " Correct answer", "wrong answer 1",
                 "wrong answer2", "wrong answer 3", 200));
         repo.save(new Question(
-                "2", "question1",
+                "2", "question2",
                 " Correct answer", "wrong answer 1",
                 "wrong answer2", "wrong answer 3", 200));
 
