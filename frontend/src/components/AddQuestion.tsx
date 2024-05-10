@@ -41,8 +41,8 @@ export default function AddQuestion() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <label> Frage:
-                <input type="text" name="question" id="question" value={newQuestion.question} onChange={handleChange}/>
+            <label> Frage: <input type="text" name="question" id="question" value={newQuestion.question}
+                                  onChange={handleChange}/>
             </label>
             <br/>
             <label> Richtige Antwort: <input type="text" name="correctAnswer" id="correctAnswer"
