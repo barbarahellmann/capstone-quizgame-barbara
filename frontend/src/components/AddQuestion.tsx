@@ -41,15 +41,27 @@ export default function AddQuestion() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <label>
-                Question:
-                <input
-                    type="text"
-                    name="question"
-                    id="question"
-                    value={newQuestion.question}
-                    onChange={handleChange}
-                />
+            <label> Frage:
+                <input type="text" name="question" id="question" value={newQuestion.question} onChange={handleChange}/>
+            </label>
+            <label> Richtige Antwort:
+                <input type="text" name="correctAnswer" id="correctAnswer" value={newQuestion.correctAnswer}
+                       onChange={handleChange}/>
+            </label>
+            <label> Falsche Antwort 1:
+                <input type="text" name="wrongAnswer1" id="wrongAnswer1" value={newQuestion.wrongAnswer1}
+                       onChange={handleChange}/>
+            </label>
+            <label> Falsche Antwort 2:
+                <input type="text" name="wrongAnswer2" id="wrongAnswer2" value={newQuestion.wrongAnswer2}
+                       onChange={handleChange}/>
+            </label>
+            <label> Falsche Antwort 3:
+                <input type="text" name="wrongAnswer3" id="wrongAnswer3" value={newQuestion.wrongAnswer3}
+                       onChange={handleChange}/>
+            </label>
+            <label> Punkte:
+                <input type="number" name="points" id="points" value={newQuestion.points} onChange={handleChange}/>
             </label>
 
             <button>Submit</button>
