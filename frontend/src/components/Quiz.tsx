@@ -34,16 +34,16 @@ export default function Quiz() {
 
     console.log(questions)
 
-
     return (
         <>
             <h2>{question.question}</h2>
+            <br/>
             <button>{question.correctAnswer}</button>
             <button>{question.wrongAnswer1}</button>
+            <br/>
             <button>{question.wrongAnswer2}</button>
             <button>{question.wrongAnswer3}</button>
 
         </>
     )
 }
-
