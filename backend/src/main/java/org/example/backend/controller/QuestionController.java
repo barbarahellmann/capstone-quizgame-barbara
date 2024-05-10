@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("api/questions")
+@RequestMapping("api/quiz")
 @RequiredArgsConstructor
 public class QuestionController {
 
