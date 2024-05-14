@@ -2,7 +2,7 @@ import {ChangeEvent, FormEvent, useState} from 'react';
 import axios from "axios";
 import {Question} from "../model/Question.ts";
 
-export default function Admin() {
+export default function AddQuestion() {
 
     const [newQuestion, setNewQuestion] = useState<Question>({
         id: "",
@@ -41,7 +41,7 @@ export default function Admin() {
 
     return (
         <>
-            <h2>Frage hinzufügen:</h2>
+            <h3>Frage hinzufügen:</h3>
             <br/>
             <br/>
             <form onSubmit={handleSubmit}>

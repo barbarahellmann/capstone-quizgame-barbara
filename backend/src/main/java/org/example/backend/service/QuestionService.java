@@ -32,6 +32,24 @@ public class QuestionService {
         return repo.save(temp);
     }
 
+
+    // vielleicht gibt es hier probleme wegen der ID
+    public Question updateQuestion(QuestionDTO questionDTO, String id) {
+        Question questionToUpdate = new Question(id,
+                questionDTO.question(),
+                questionDTO.correctAnswer(),
+                questionDTO.wrongAnswer1(),
+                questionDTO.wrongAnswer2(),
+                questionDTO.wrongAnswer3(),
+                questionDTO.points());
+        return repo.save(questionToUpdate);
+    }
+
+    public Question findQuestionById(String id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Question with id: " + id + " not found!"));
+    }
+
     public String deleteQuestionById(String id) {
         try {
             repo.delete(repo.findById(id).orElseThrow());

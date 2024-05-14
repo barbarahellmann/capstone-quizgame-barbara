@@ -1,9 +1,9 @@
-import Play from "./components/Play.tsx";
-import Admin from "./components/Admin.tsx";
+import Play from "./pages/Play.tsx";
+import Admin from "./pages/Admin.tsx";
 import {Route, Routes} from "react-router-dom";
-import PlayResult from "./components/PlayResult.tsx";
+import PlayResult from "./pages/PlayResult.tsx";
 import Navigation from "./components/Navigation.tsx";
-import StartPage from "./components/StartPage.tsx";
+import StartPage from "./pages/StartPage.tsx";
 
 
 function App() {
