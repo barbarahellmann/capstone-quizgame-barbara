@@ -43,9 +43,9 @@ public class QuestionController {
         boolean deleted = Boolean.parseBoolean(service.deleteQuestionById(id));
 
         if (deleted) {
-            return ResponseEntity.status(HttpStatus.OK).body("Question mit der ID: " + id + " erfolgreich gelöscht!");
+            return ResponseEntity.status(HttpStatus.OK).body("Question mit der ID: " + id + " nicht gefunden.");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Question mit der ID: " + id + " nicht gefunden.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Question mit der ID: " + id + " erfolgreich gelöscht!");
         }
     }
 }
