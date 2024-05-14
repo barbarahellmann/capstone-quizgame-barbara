@@ -37,7 +37,7 @@ export default function QuestionCard({question}: { question: Question }) {
             .catch((error) => {
                 console.log(error.message)
             })
-    };
+    }
 
     return (
         <div>
