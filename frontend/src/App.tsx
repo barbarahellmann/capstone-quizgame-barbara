@@ -1,5 +1,5 @@
 import Play from "./components/Play.tsx";
-import AddQuestion from "./components/AddQuestion.tsx";
+import Admin from "./components/Admin.tsx";
 import {Route, Routes} from "react-router-dom";
 import PlayResult from "./components/PlayResult.tsx";
 import Navigation from "./components/Navigation.tsx";
@@ -17,7 +17,7 @@ function App() {
           <Routes>
               <Route path="/start" element={<StartPage/>}/>
               <Route path="/play" element={<Play/>}/>
-              <Route path="/admin" element={<AddQuestion/>}/>
+              <Route path="/admin" element={<Admin/>}/>
               <Route path="/result/:questionnumber" element={<PlayResult/>}/>
           </Routes>
           <br/>

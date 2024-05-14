@@ -2,7 +2,7 @@ import {ChangeEvent, FormEvent, useState} from 'react';
 import axios from "axios";
 import {Question} from "../model/Question.ts";
 
-export default function AddQuestion() {
+export default function Admin() {
 
     const [newQuestion, setNewQuestion] = useState<Question>({
         id: "",
