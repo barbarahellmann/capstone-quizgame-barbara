@@ -1,10 +1,10 @@
 export default function PlayResult() {
 
-    // Questionnumber soll die Ergebnisseite für den jeweiligen Users anzeigen
+    /* Questionnumber soll die Ergebnisseite für den jeweiligen Users anzeigen
 
-//    const urlParams = useParams()
-//    const questionnumber = urlParams.questionnumber;
-
+        const urlParams = useParams()
+        const questionnumber = urlParams.questionnumber;
+    */
 
     return (
         <>

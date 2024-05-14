@@ -32,12 +32,6 @@ public class QuestionController {
         return service.save(newQuestion);
     }
 
-
-    //   @DeleteMapping("/{id}")
-    //   public String deleteQuestion(@PathVariable String id) {
-    //       return service.deleteQuestionById(id);
-    //   }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteQuestion(@PathVariable String id) {
         boolean deleted = Boolean.parseBoolean(service.deleteQuestionById(id));
