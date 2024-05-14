@@ -3,7 +3,7 @@ import {Question} from "../model/Question.ts";
 import axios from "axios";
 
 
-export default function Quiz() {
+export default function Play() {
 
     // Daten werden vom Server geladen
     const [questions, setQuestions] = useState<Question[]>()
@@ -43,7 +43,6 @@ export default function Quiz() {
             <br/>
             <button>{question.wrongAnswer2}</button>
             <button>{question.wrongAnswer3}</button>
-
         </>
     )
 }

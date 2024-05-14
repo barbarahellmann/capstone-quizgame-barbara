@@ -40,38 +40,44 @@ export default function AddQuestion() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label> Frage: <input type="text" name="question" id="question" value={newQuestion.question}
-                                  onChange={handleChange}/>
-            </label>
+        <>
+            <h2>Frage hinzufügen:</h2>
             <br/>
-            <label> Richtige Antwort: <input type="text" name="correctAnswer" id="correctAnswer"
-                                             value={newQuestion.correctAnswer}
-                       onChange={handleChange}/>
-            </label>
             <br/>
-            <label> Falsche Antwort 1: <input type="text" name="wrongAnswer1" id="wrongAnswer1"
-                                              value={newQuestion.wrongAnswer1}
-                       onChange={handleChange}/>
-            </label>
-            <br/>
-            <label> Falsche Antwort 2: <input type="text" name="wrongAnswer2" id="wrongAnswer2"
-                                              value={newQuestion.wrongAnswer2}
-                       onChange={handleChange}/>
-            </label>
-            <br/>
-            <label> Falsche Antwort 3: <input type="text" name="wrongAnswer3" id="wrongAnswer3"
-                                              value={newQuestion.wrongAnswer3}
-                       onChange={handleChange}/>
-            </label>
-            <br/>
-            <label> Punkte: <input type="number" name="points" id="points" value={newQuestion.points}
-                                   onChange={handleChange}/>
-            </label>
-            <br/>
+            <form onSubmit={handleSubmit}>
+                <label> Frage: <input type="text" name="question" id="question" value={newQuestion.question}
+                                      onChange={handleChange}/>
+                </label>
+                <br/>
+                <label> Richtige Antwort: <input type="text" name="correctAnswer" id="correctAnswer"
+                                                 value={newQuestion.correctAnswer}
+                                                 onChange={handleChange}/>
+                </label>
+                <br/>
+                <label> Falsche Antwort 1: <input type="text" name="wrongAnswer1" id="wrongAnswer1"
+                                                  value={newQuestion.wrongAnswer1}
+                                                  onChange={handleChange}/>
+                </label>
+                <br/>
+                <label> Falsche Antwort 2: <input type="text" name="wrongAnswer2" id="wrongAnswer2"
+                                                  value={newQuestion.wrongAnswer2}
+                                                  onChange={handleChange}/>
+                </label>
+                <br/>
+                <label> Falsche Antwort 3: <input type="text" name="wrongAnswer3" id="wrongAnswer3"
+                                                  value={newQuestion.wrongAnswer3}
+                                                  onChange={handleChange}/>
+                </label>
+                <br/>
+                <label> Punkte: <input type="number" name="points" id="points" value={newQuestion.points}
+                                       onChange={handleChange}/>
+                </label>
+                <br/>
 
 
-            <button>Submit</button>
-        </form>
+                <button>Submit</button>
+            </form>
+
+        </>
     )
 }

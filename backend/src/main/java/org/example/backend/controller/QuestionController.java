@@ -1,7 +1,6 @@
 package org.example.backend.controller;
 
 
-
 import lombok.RequiredArgsConstructor;
 import org.example.backend.dto.QuestionDTO;
 import org.example.backend.model.Question;
@@ -30,9 +29,9 @@ public class QuestionController {
         return service.save(newQuestion);
     }
 
-
     @DeleteMapping("/{id}")
-    public String deleteQuestion(@PathVariable String id) {
-        return service.deleteQuestionById(id);
+    public void deleteQuestion(@PathVariable String id) {
+        service.deleteQuestionById(id);
     }
+
 }
