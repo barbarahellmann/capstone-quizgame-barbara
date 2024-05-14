@@ -1,6 +1,5 @@
 package org.example.backend.controller;
 
-
 import org.example.backend.model.Question;
 import org.example.backend.repository.QuestionRepository;
 import org.junit.jupiter.api.Test;
@@ -35,7 +34,7 @@ class QuestionControllerTest {
                 " Correct answer", "wrong answer 1",
                 "wrong answer2", "wrong answer 3", 200));
 
-        MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/api/questions"))
+        MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/api/quiz"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(
                         """
