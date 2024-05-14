@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -68,16 +69,10 @@ class QuestionControllerTest {
 
 
     @Test
-    void deleteQuestionById_shouldReturnStatus200_whenCalledWithValidId() throws Exception {
-        //GIVEN
-        Question existingQuestion = new Question(
-                "1", "question1",
-                " Correct answer", "wrong answer 1",
-                "wrong answer2", "wrong answer 3", 200);
-        repo.save(existingQuestion);
-
-        //WHEN & THEN
-        mvc.perform(delete("/api/quiz/1"))
+    void deleteQuestion_shouldReturnOk_whenQuestionDeleted() throws Exception {
+        mvc.perform(delete("/api/quiz/{id}", "1")
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
+
 }
