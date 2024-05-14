@@ -12,6 +12,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 class QuestionControllerTest {
@@ -35,7 +38,7 @@ class QuestionControllerTest {
                 "wrong answer2", "wrong answer 3", 200));
 
         MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/api/quiz"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(
                         """
                     [
@@ -61,5 +64,20 @@ class QuestionControllerTest {
                     """
                 )).andReturn();
         System.out.println(result.getResponse().getContentAsString());
+    }
+
+
+    @Test
+    void deleteQuestionById_shouldReturnStatus200_whenCalledWithValidId() throws Exception {
+        //GIVEN
+        Question existingQuestion = new Question(
+                "1", "question1",
+                " Correct answer", "wrong answer 1",
+                "wrong answer2", "wrong answer 3", 200);
+        repo.save(existingQuestion);
+
+        //WHEN & THEN
+        mvc.perform(delete("/api/quiz/1"))
+                .andExpect(status().isOk());
     }
 }

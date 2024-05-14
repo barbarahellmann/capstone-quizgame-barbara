@@ -29,4 +29,10 @@ public class QuestionController {
     public Question postQuestion(@RequestBody QuestionDTO newQuestion) {
         return service.save(newQuestion);
     }
+
+
+    @DeleteMapping("/{id}")
+    public String deleteQuestion(@PathVariable String id) {
+        return service.deleteQuestionById(id);
+    }
 }

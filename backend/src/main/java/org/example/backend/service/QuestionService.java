@@ -7,6 +7,7 @@ import org.example.backend.repository.QuestionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -29,5 +30,14 @@ public class QuestionService {
                 newQuestion.points()
         );
         return repo.save(temp);
+    }
+
+    public String deleteQuestionById(String id) {
+        try {
+            repo.delete(repo.findById(id).orElseThrow());
+            return "Question with ID " + id + " successfully deleted";
+        } catch (NoSuchElementException e) {
+            return "Question with ID " + id + " not found.";
+        }
     }
 }
