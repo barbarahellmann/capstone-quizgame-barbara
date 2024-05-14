@@ -51,4 +51,17 @@ class QuestionServiceTest {
         assertEquals(expected, actual);
     }
 
+
+    @Test
+    public void testDeleteQuestionById() {
+        // GIVEN
+        String id = "1";
+
+        // WHEN
+        String result = questionService.deleteQuestionById(id);
+
+        // THEN
+        assertEquals("Question with ID " + id + " not found.", result);
+    }
+
 }
