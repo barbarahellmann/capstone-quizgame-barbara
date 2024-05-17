@@ -5,7 +5,7 @@ export default function StartPage() {
 
     return (
             <h2>
-                <Link to="/">Quiz starten</Link>
+                <Link to="/play">Quiz starten</Link>
             </h2>
     )
 }
