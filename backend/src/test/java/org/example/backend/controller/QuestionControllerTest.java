@@ -11,9 +11,9 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -28,7 +28,23 @@ class QuestionControllerTest {
 
     @DirtiesContext
     @Test
-    void expectedListOfQuestion_WhenCallingHTTPGet() throws Exception {
+    void getAllQuestion_returnsEmptyList_whenCalledInitially() throws Exception {
+        //GIVEN
+
+        //WHEN
+        mvc.perform(MockMvcRequestBuilders.get("/api/quiz"))
+                //THEN
+
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        []
+                        """));
+    }
+
+
+    @DirtiesContext
+    @Test
+    void getAllQuestions_WhenCallingHTTPGet() throws Exception {
         repo.save(new Question(
                 "1", "question1",
                 " Correct answer", "wrong answer 1",
@@ -40,7 +56,7 @@ class QuestionControllerTest {
 
         MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/api/quiz"))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json(
+                .andExpect(content().json(
                         """
                     [
                         {
