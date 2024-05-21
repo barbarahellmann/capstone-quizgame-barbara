@@ -157,4 +157,29 @@ class QuestionControllerTest {
                                     }
                         """));
     }
+
+    @Test
+    @DirtiesContext
+    void getByID_shouldReturnQuestion_whenCalledWithId() throws Exception {
+        //GIVEN
+        Question existingQuestion = new Question("1", "question1", " Correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+        repo.save(existingQuestion);
+
+        //WHEN
+        mvc.perform(get("/api/quiz/1"))
+
+                //THEN
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                            {
+                                "id": "1",
+                                "question": "question1",
+                                "correctAnswer": " Correct answer",
+                                "wrongAnswer1": "wrong answer 1",
+                                "wrongAnswer2": "wrong answer2",
+                                "wrongAnswer3": "wrong answer 3",
+                                "points": 200
+                            }
+                        """));
+    }
 }

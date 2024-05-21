@@ -6,9 +6,11 @@ import org.example.backend.repository.QuestionRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class QuestionServiceTest {
@@ -85,4 +87,32 @@ class QuestionServiceTest {
         assertEquals(updatedQuestion, actual);
     }
 
+    @Test
+    void getQuestionById_shouldReturnQuestion_whenCalledWithId() {
+        //GIVEN
+        String id = "123";
+        Question question = new Question("123", "question1", "correct answer", "wrong answer 1", "wrong answer 2", "wrong answer 3", 200);
+
+        when(mockRepo.findById(id)).thenReturn(Optional.of(question));
+
+        //WHEN
+        Question actual = questionService.findQuestionById(id);
+
+        //THEN
+        verify(mockRepo).findById(id);
+        assertEquals(question, actual);
+    }
+
+    @Test
+    void getQuestionById_shouldThrowException_whenCalledWithInvalidId() {
+        //GIVEN
+        String id = "123";
+        when(mockRepo.findById(id)).thenReturn(Optional.empty());
+
+        //WHEN
+        assertThrows(NoSuchElementException.class, () -> questionService.findQuestionById(id));
+
+        //THEN
+        verify(mockRepo).findById(id);
+    }
 }
