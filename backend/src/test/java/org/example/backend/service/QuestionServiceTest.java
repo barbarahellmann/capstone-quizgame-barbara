@@ -37,14 +37,14 @@ class QuestionServiceTest {
 
 
     @Test
-    void save_shouldReturnQuestion() {
+    void addQuestion_shouldReturnQuestion() {
         // GIVEN
-        QuestionDTO questionToSave = new QuestionDTO("question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
-        Question expected = new Question("1", "question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+        QuestionDTO questionToAddAdd = new QuestionDTO("question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+        Question expected = new Question("Test-Id1", "question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
         when(mockRepo.save(any(Question.class))).thenReturn(expected);
 
         //WHEN
-        Question actual = questionService.save(questionToSave);
+        Question actual = questionService.addQuestion(questionToAddAdd);
 
         //THEN
         verify(mockRepo).save(any(Question.class));

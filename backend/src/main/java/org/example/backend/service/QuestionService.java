@@ -19,7 +19,7 @@ public class QuestionService {
         return repo.findAll();
     }
 
-    public Question save(QuestionDTO newQuestion) {
+    public Question addQuestion(QuestionDTO newQuestion) {
         Question temp = new Question(
                 null,
                 newQuestion.question(),

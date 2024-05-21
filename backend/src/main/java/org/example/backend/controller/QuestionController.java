@@ -30,7 +30,7 @@ public class QuestionController {
 
     @PostMapping
     public Question postQuestion(@RequestBody QuestionDTO newQuestion) {
-        return service.save(newQuestion);
+        return service.addQuestion(newQuestion);
     }
 
     @PutMapping("/{id}")

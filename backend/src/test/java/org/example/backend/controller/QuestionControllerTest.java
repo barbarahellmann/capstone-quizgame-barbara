@@ -13,8 +13,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -83,6 +83,38 @@ class QuestionControllerTest {
         System.out.println(result.getResponse().getContentAsString());
     }
 
+    @Test
+    void postQuestion_shouldReturnOk() throws Exception {
+        // GIVEN
+
+        //WHEN
+        mvc.perform(post("/api/quiz")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                        {
+                                            "question": "question1",
+                                            "correctAnswer": " Correct answer",
+                                            "wrongAnswer1": "wrong answer 1",
+                                            "wrongAnswer2": "wrong answer2",
+                                            "wrongAnswer3": "wrong answer 3",
+                                            "points": 200
+                                        }
+                                """)
+                )
+                //THEN
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                                {
+                                    "question": "question1",
+                                    "correctAnswer": " Correct answer",
+                                    "wrongAnswer1": "wrong answer 1",
+                                    "wrongAnswer2": "wrong answer2",
+                                    "wrongAnswer3": "wrong answer 3",
+                                    "points": 200
+                                }
+                        """))
+                .andExpect(jsonPath("$.id").isNotEmpty());
+    }
 
     @Test
     void deleteQuestion_shouldReturnOk_whenQuestionDeleted() throws Exception {
