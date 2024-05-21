@@ -12,8 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -123,4 +122,39 @@ class QuestionControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    @DirtiesContext
+    void postQuestion_shouldAddQuestion_whenCalledWithDTO() throws Exception {
+        // GIVEN
+        Question existingQuestion = new Question("1", "question1", " Correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+
+        repo.save(existingQuestion);
+
+        //WHEN
+        mvc.perform(put("/api/quiz/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                            {
+                                                "question": "Updated question1",
+                                                "correctAnswer": "Updated Correct answer",
+                                                "wrongAnswer1": "Updated wrong answer 1",
+                                                "wrongAnswer2": "Updated wrong answer2",
+                                                "wrongAnswer3": "Updated wrong answer 3",
+                                                "points": 2
+                                            }
+                                """))
+                //THEN
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                                    {
+                                        "id": "1",
+                                        "question": "Updated question1",
+                                        "correctAnswer": "Updated Correct answer",
+                                        "wrongAnswer1": "Updated wrong answer 1",
+                                        "wrongAnswer2": "Updated wrong answer2",
+                                        "wrongAnswer3": "Updated wrong answer 3",
+                                        "points": 2
+                                    }
+                        """));
+    }
 }

@@ -6,6 +6,7 @@ import org.example.backend.repository.QuestionRepository;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -53,7 +54,7 @@ class QuestionServiceTest {
 
 
     @Test
-    public void testDeleteQuestionById() {
+    void deleteQuestion_shouldRemoveQuestion_whenCalledWithId() {
         // GIVEN
         String id = "1";
 
@@ -62,6 +63,26 @@ class QuestionServiceTest {
 
         // THEN
         assertEquals("Question with ID " + id + " not found.", result);
+    }
+
+    @Test
+    void updateQuestion_shouldUpdateQuestion_whenCalledWithDTO() {
+        //GIVEN
+        String id = "123";
+        QuestionDTO questionToUpdate = new QuestionDTO("Update1", "Update correct answer", "Update wrong answer 1", "Update wrong answer 2", "Update wrong answer 3", 3);
+        Question existingQuestion = new Question(id, "question1", "correct answer", "wrong answer 1", "wrong answer 2", "wrong answer 3", 200);
+        Question updatedQuestion = new Question(id, "Update1", "Update correct answer", "Update wrong answer 1", "Update wrong answer 2", "Update wrong answer 3", 3);
+
+        when(mockRepo.findById(id)).thenReturn(Optional.of(existingQuestion));
+        when(mockRepo.save(updatedQuestion)).thenReturn(updatedQuestion);
+
+        //WHEN
+        Question actual = questionService.updateQuestion(questionToUpdate, id);
+
+        //THEN
+        verify(mockRepo).findById(id);
+        verify(mockRepo).save(updatedQuestion); // Verify the updated question is saved
+        assertEquals(updatedQuestion, actual);
     }
 
 }

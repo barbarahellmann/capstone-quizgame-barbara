@@ -35,14 +35,20 @@ public class QuestionService {
 
     // vielleicht gibt es hier probleme wegen der ID
     public Question updateQuestion(QuestionDTO questionDTO, String id) {
-        Question questionToUpdate = new Question(id,
+        Question existingQuestion = repo.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Question not found"));
+
+        Question updatedQuestion = new Question(
+                existingQuestion.id(),
                 questionDTO.question(),
                 questionDTO.correctAnswer(),
                 questionDTO.wrongAnswer1(),
                 questionDTO.wrongAnswer2(),
                 questionDTO.wrongAnswer3(),
-                questionDTO.points());
-        return repo.save(questionToUpdate);
+                questionDTO.points()
+        );
+
+        return repo.save(updatedQuestion);
     }
 
     public Question findQuestionById(String id) {
