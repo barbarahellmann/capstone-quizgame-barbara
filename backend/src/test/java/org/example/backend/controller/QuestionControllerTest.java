@@ -115,12 +115,7 @@ class QuestionControllerTest {
                 .andExpect(jsonPath("$.id").isNotEmpty());
     }
 
-    @Test
-    void deleteQuestion_shouldReturnOk_whenQuestionDeleted() throws Exception {
-        mvc.perform(delete("/api/quiz/{id}", "1")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-    }
+
 
     @Test
     @DirtiesContext
@@ -193,5 +188,18 @@ class QuestionControllerTest {
 
                 //THEN
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    @DirtiesContext
+    void deleteQuestion_shouldReturnOk_whenQuestionDeleted() throws Exception {
+        //GIVEN
+        Question existingQuestion = new Question("1", "question1", " Correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+        repo.save(existingQuestion);
+
+        //WHEN
+        mvc.perform(delete("/api/quiz/1"))
+                //THEN
+                .andExpect(status().isOk());
     }
 }

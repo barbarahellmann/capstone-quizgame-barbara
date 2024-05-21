@@ -15,27 +15,27 @@ import static org.mockito.Mockito.*;
 
 class QuestionServiceTest {
 
-    private final QuestionRepository mockRepo =  mock(QuestionRepository.class);
+    private final QuestionRepository mockRepo = mock(QuestionRepository.class);
     private final QuestionService questionService = new QuestionService(mockRepo);
 
 
     // findAll Methode testen indem 3 dummy Fragen in eine Liste gepackt werden
     @Test
     void getAllQuestions_shouldReturnList() {
-    //GIVEN
-    Question question1 = new Question("1", "question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
-    Question question2 = new Question("2", "question2", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
-    Question question3 = new Question("3", "question3", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
-    List<Question> expected = List.of(question1, question2, question3);
+        //GIVEN
+        Question question1 = new Question("1", "question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+        Question question2 = new Question("2", "question2", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+        Question question3 = new Question("3", "question3", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+        List<Question> expected = List.of(question1, question2, question3);
 
-    when(mockRepo.findAll()).thenReturn(expected);
+        when(mockRepo.findAll()).thenReturn(expected);
 
-    //WHEN
-    List<Question> actual = questionService.getAllQuestions();
+        //WHEN
+        List<Question> actual = questionService.getAllQuestions();
 
-    //THEN
-    verify(mockRepo).findAll();
-    assertEquals(expected, actual);
+        //THEN
+        verify(mockRepo).findAll();
+        assertEquals(expected, actual);
     }
 
 
@@ -52,19 +52,6 @@ class QuestionServiceTest {
         //THEN
         verify(mockRepo).save(any(Question.class));
         assertEquals(expected, actual);
-    }
-
-
-    @Test
-    void deleteQuestion_shouldRemoveQuestion_whenCalledWithId() {
-        // GIVEN
-        String id = "1";
-
-        // WHEN
-        String result = questionService.deleteQuestionById(id);
-
-        // THEN
-        assertEquals("Question with ID " + id + " not found.", result);
     }
 
     @Test
@@ -114,5 +101,18 @@ class QuestionServiceTest {
 
         //THEN
         verify(mockRepo).findById(id);
+    }
+
+    @Test
+    void deleteQuestion_shouldRemoveQuestion_whenCalledWithId() {
+        // GIVEN
+        String id = "1";
+        doNothing().when(mockRepo).deleteById(id);
+
+        // WHEN
+        String result = questionService.deleteQuestionById(id);
+
+        // THEN
+        assertEquals("Question with ID " + id + " not found.", result);
     }
 }
