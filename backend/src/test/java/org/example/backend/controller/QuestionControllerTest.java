@@ -182,4 +182,16 @@ class QuestionControllerTest {
                             }
                         """));
     }
+
+    @Test
+    @DirtiesContext
+    void getByID_shouldReturnStatus404_whenCalledWithInvalidId() throws Exception {
+        //GIVEN
+
+        //WHEN
+        mvc.perform(get("/api/quiz/1"))
+
+                //THEN
+                .andExpect(status().isNotFound());
+    }
 }
