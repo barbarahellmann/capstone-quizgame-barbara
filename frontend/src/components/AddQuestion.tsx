@@ -41,7 +41,7 @@ export default function AddQuestion() {
 
     return (
         <>
-            <h2>Frage hinzufügen:</h2>
+            <h3>Frage hinzufügen:</h3>
             <br/>
             <br/>
             <form onSubmit={handleSubmit}>

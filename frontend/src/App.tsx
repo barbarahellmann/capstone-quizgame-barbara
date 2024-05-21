@@ -1,9 +1,9 @@
-import Play from "./components/Play.tsx";
-import AddQuestion from "./components/AddQuestion.tsx";
+import Play from "./pages/Play.tsx";
+import Admin from "./pages/Admin.tsx";
 import {Route, Routes} from "react-router-dom";
-import PlayResult from "./components/PlayResult.tsx";
+import PlayResult from "./pages/PlayResult.tsx";
 import Navigation from "./components/Navigation.tsx";
-import StartPage from "./components/StartPage.tsx";
+import StartPage from "./pages/StartPage.tsx";
 
 
 function App() {
@@ -15,9 +15,9 @@ function App() {
           <br/>
           <br/>
           <Routes>
-              <Route path="/start" element={<StartPage/>}/>
+              <Route path="/" element={<StartPage/>}/>
               <Route path="/play" element={<Play/>}/>
-              <Route path="/admin" element={<AddQuestion/>}/>
+              <Route path="/admin" element={<Admin/>}/>
               <Route path="/result/:questionnumber" element={<PlayResult/>}/>
           </Routes>
           <br/>
