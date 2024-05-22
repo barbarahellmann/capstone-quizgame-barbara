@@ -12,6 +12,7 @@ function App() {
   return (
       <>
           <h1>NerdDuell</h1>
+          <p>Das ist ein Test</p>
           <br/>
           <br/>
           <Routes>
