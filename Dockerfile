@@ -1,5 +1,5 @@
 # Basis-Image festlegen, auf dem Ihr Docker-Image basiert
-FROM --platform=linux/arm64/v8 openjdk:21
+FROM --platform=linux/amd64 openjdk:21
 
 # Port der Container nach außen freigibt
 EXPOSE 8080
