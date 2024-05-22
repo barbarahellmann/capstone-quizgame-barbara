@@ -16,9 +16,10 @@ export default function Admin() {
             })
     }
 
+    // Durch [{}] wird gesagt, dass es der useEffect nur einmalig durchgeführt wird. Das fixt das Problem mit dem Reload beim speicher der Daten
     useEffect(() => {
         fetchQuestion()
-    }, [])
+    }, [{}])
 
     console.log(questionList);
 

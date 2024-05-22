@@ -4,6 +4,7 @@ import {Question} from "../model/Question.ts";
 
 export default function AddQuestion() {
 
+    // Definition welche Informationen in newQuestion gespeichert werden
     const [newQuestion, setNewQuestion] = useState<Question>({
         id: "",
         question: "",
@@ -14,14 +15,15 @@ export default function AddQuestion() {
         points: 0,
     });
 
+    // Speichert bei jeder Zeicheneingabe die Information in setNewQuestion
     function handleChange(event: ChangeEvent<HTMLInputElement>) {
         const key = event.target.name
         setNewQuestion({...newQuestion, [key]: event.target.value})
     }
 
-
+    // Sendet die Daten mit post an das Backend
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault()
+        event.preventDefault();
         axios.post("/api/quiz", {...newQuestion, id: "null"})
             .then(() => {
                 setNewQuestion({
@@ -33,11 +35,13 @@ export default function AddQuestion() {
                     wrongAnswer3: "",
                     points: 0
                 })
+                alert("Question was submitted")
             })
             .catch((error) => {
-                console.log(error.message)
+                console.log(error.message);
             })
     }
+
 
     return (
         <>
