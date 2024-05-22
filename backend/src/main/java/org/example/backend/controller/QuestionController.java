@@ -23,15 +23,22 @@ public class QuestionController {
         return service.getAllQuestions();
     }
 
+    @GetMapping("/{id}")
+    public Question getQuestionById(@PathVariable String id) {
+        return service.findQuestionById(id);
+    }
 
     @PostMapping
     public Question postQuestion(@RequestBody QuestionDTO newQuestion) {
-        return service.save(newQuestion);
+        return service.addQuestion(newQuestion);
     }
 
+    @PutMapping("/{id}")
+    public Question putQuestion(@RequestBody QuestionDTO questionDTO, @PathVariable String id) {
+        return service.updateQuestion(questionDTO, id);
+    }
     @DeleteMapping("/{id}")
     public void deleteQuestion(@PathVariable String id) {
         service.deleteQuestionById(id);
     }
-
 }
