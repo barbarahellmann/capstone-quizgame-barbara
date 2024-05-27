@@ -1,7 +1,5 @@
 package org.example.backend.security;
 
-import org.example.backend.service.CustomOAuth2UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,16 +16,8 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
     @Value("${app.url}")
     private String appUrl;
-
-    private final CustomOAuth2UserService customOAuth2UserService;
-
-    @Autowired
-    public SecurityConfig(CustomOAuth2UserService customOAuth2UserService) {
-        this.customOAuth2UserService = customOAuth2UserService;
-    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -35,7 +25,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(a -> a
                         .requestMatchers("/api/play").authenticated()
-                        .requestMatchers("/api/admin").hasAuthority("ROLE_ADMIN") // Zugriff nur für Benutzer mit der Rolle ADMIN
+                        .requestMatchers("/api/admin").hasAuthority("ROLE_ADMIN") // Ensure this line is correct
                         .requestMatchers("/api/result").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/quiz").authenticated()
                         .anyRequest().permitAll())
@@ -43,11 +33,8 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
                 .oauth2Login(o -> o
-                        .defaultSuccessUrl(appUrl)
-                        .userInfoEndpoint()
-                        .userService(customOAuth2UserService));
+                        .defaultSuccessUrl(appUrl));
 
         return http.build();
     }
 }
-
