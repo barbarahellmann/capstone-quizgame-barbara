@@ -1,4 +1,4 @@
-package security;
+package org.example.backend.security;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +22,14 @@ public class UserControllerTest {
     @Test
     @WithMockUser(username = "test-user")
     void testGetMe_WithLoggedInUser_expectedUsername() throws Exception {
-        mvc.perform(get("api/quiz/me"))
+        mvc.perform(get("/api/auth/me"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("test-user"));
     }
 
     @Test
     void testGetMe_WithoutLoggedInUser_expectedAnonymousUser() throws Exception {
-        mvc.perform(get("api/quiz/me"))
+        mvc.perform(get("/api/auth/me"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("anonymousUser"));
     }

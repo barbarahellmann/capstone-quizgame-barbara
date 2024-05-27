@@ -1,4 +1,4 @@
-package security;
+package org.example.backend.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -24,16 +24,13 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(a -> a
-                        .requestMatchers("/api/*").authenticated()
-                        .requestMatchers("/api/auth/me").authenticated() // Endpunkte angeben, um sie abzusichern, für nicht eingeloggte Nutzer
-                        .requestMatchers("/api/secured").authenticated()
-                        .requestMatchers("/api/play").authenticated()
+                        .requestMatchers("/api/play").authenticated()// Endpunkte angeben, um sie abzusichern, für nicht eingeloggte Nutzer
                         .requestMatchers("/api/admin").authenticated()
                         .requestMatchers("/api/result").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/quiz").authenticated()
                         .anyRequest().permitAll())  // permitAll definiert, dass Endpunkte offen sind, wie bspw. bei der Anmeldung               )
-                .logout(logout -> logout.logoutUrl("/api/user/logout")
-                        .logoutSuccessHandler((request, response, authentication) -> response.setStatus(200)))
+                .logout(logout ->
+                        logout.logoutSuccessUrl(appUrl))
 
                 .sessionManagement(sessiontemp ->
                         sessiontemp.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))

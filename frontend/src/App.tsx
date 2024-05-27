@@ -37,10 +37,13 @@ function App() {
 
     //Ausloggen
     function logout() {
-        axios.post("/api/users/logout")
-            .then(() => loadUser())
+        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
+
+        window.open(host + '/logout', '_self')
     }
-  return (
+
+
+    return (
       <>
           <button onClick={login}>Login</button>
           <button onClick={loadUser}>Me</button>
