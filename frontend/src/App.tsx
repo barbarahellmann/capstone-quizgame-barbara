@@ -4,22 +4,62 @@ import {Route, Routes} from "react-router-dom";
 import PlayResult from "./pages/PlayResult.tsx";
 import Navigation from "./components/Navigation.tsx";
 import StartPage from "./pages/StartPage.tsx";
+import axios from "axios";
+import {useEffect, useState} from "react";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
 
 
 function App() {
 
+    // Login
+    const [user, setUser] = useState<string>()
 
-  return (
+    const loadUser = () => {
+        axios.get('/api/auth/me')
+            .then(response => {
+                console.log(response.data)
+                setUser(response.data)
+            })
+    }
+
+    // User bleibt eingeloggt
+    useEffect(() => {
+        loadUser()
+    }, [])
+
+
+
+    function login() {
+        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin // checkt, wo wir uns gerade befinden
+
+        window.open(host + '/oauth2/authorization/github', '_self')
+    }
+
+    //Ausloggen
+    function logout() {
+        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
+
+        window.open(host + '/logout', '_self')
+    }
+
+
+    return (
       <>
+          <button onClick={login}>Login</button>
+          <button onClick={loadUser}>Me</button>
+          <button onClick={logout}>Logout</button>
+          <p>{user}</p>
+
           <h1>NerdDuell</h1>
-          <p>Das ist ein Test</p>
           <br/>
           <br/>
           <Routes>
               <Route path="/" element={<StartPage/>}/>
-              <Route path="/play" element={<Play/>}/>
-              <Route path="/admin" element={<Admin/>}/>
-              <Route path="/result/:questionnumber" element={<PlayResult/>}/>
+              <Route element={<ProtectedRoute user={user}/>}>
+                  <Route path="/admin" element={<Admin/>}/>
+                  <Route path="/play" element={<Play/>}/>
+                  <Route path="/result/:questionnumber" element={<PlayResult/>}/>
+              </Route>
           </Routes>
           <br/>
           <br/>
