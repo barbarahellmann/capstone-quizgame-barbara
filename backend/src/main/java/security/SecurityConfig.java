@@ -31,8 +31,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/admin").authenticated()
                         .requestMatchers("/api/result").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/quiz").authenticated()
-                        .anyRequest().permitAll()  // permitAll definiert, dass Endpunkte offen sind, wie bspw. bei der Anmeldung
-                )
+                        .anyRequest().permitAll())  // permitAll definiert, dass Endpunkte offen sind, wie bspw. bei der Anmeldung               )
+                .logout(logout -> logout.logoutUrl("/api/user/logout")
+                        .logoutSuccessHandler((request, response, authentication) -> response.setStatus(200)))
+
                 .sessionManagement(sessiontemp ->
                         sessiontemp.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .exceptionHandling(exception -> exception
