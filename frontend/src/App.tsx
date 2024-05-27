@@ -12,7 +12,7 @@ import ProtectedRoute from "./components/ProtectedRoute.tsx";
 function App() {
 
     // Login
-    const [user, setUser] = useState<string | null | undefined>(undefined)
+    const [user, setUser] = useState<string>()
 
     const loadUser = () => {
         axios.get('/api/auth/me')
