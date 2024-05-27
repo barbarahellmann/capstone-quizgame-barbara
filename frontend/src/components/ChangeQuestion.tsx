@@ -25,6 +25,7 @@ export default function QuestionCard({question}: { question: Question }) {
                 console.log("Question updated successfully:" + response.data);
                 setEditing(false);
                 setQuestion(editedQuestion); // Update question prop with edited movie data
+                alert("Frage wurde geändert")
             })
             .catch(error => console.error("Error while updating question:", error));
     };
@@ -33,6 +34,7 @@ export default function QuestionCard({question}: { question: Question }) {
         axios.delete("/api/quiz/" + question.id)
             .then((response) => {
                 console.log(response)
+                alert("Frage wird gelöscht.")
             })
             .catch((error) => {
                 console.log(error.message)
