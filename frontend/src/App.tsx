@@ -8,19 +8,21 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 
-
 function App() {
 
     // Login
-    const [user, setUser] = useState<string>()
+    const [user, setUser] = useState<string | undefined>();
 
     const loadUser = () => {
         axios.get('/api/auth/me')
             .then(response => {
-                console.log(response.data)
-                setUser(response.data)
+                console.log(response.data);
+                setUser(response.data);
             })
-    }
+            .catch(error => {
+                console.error('Error loading user:', error);
+            });
+    };
 
     // User bleibt eingeloggt
     useEffect(() => {
@@ -46,29 +48,29 @@ function App() {
 
 
     return (
-      <>
-          <button onClick={login}>Login</button>
-          <button onClick={loadUser}>Me</button>
-          <button onClick={logout}>Logout</button>
-          <p>{user}</p>
+        <>
+            <button onClick={login}>Login</button>
+            <button onClick={loadUser}>Me</button>
+            <button onClick={logout}>Logout</button>
+            <p>{user}</p>
 
-          <h1>NerdDuell</h1>
-          <br/>
-          <br/>
-          <Routes>
-              <Route path="/" element={<StartPage/>}/>
-              <Route element={<ProtectedRoute user={user}/>}>
-                  <Route path="/admin" element={<Admin/>}/>
-                  <Route path="/play" element={<Play/>}/>
-                  <Route path="/result/:questionnumber" element={<PlayResult/>}/>
-              </Route>
-          </Routes>
-          <br/>
-          <br/>
-          <br/>
-          <Navigation/>
-      </>
-  )
+            <h1>NerdDuell</h1>
+            <br/>
+            <br/>
+            <Routes>
+                <Route path="/" element={<StartPage/>}/>
+                <Route element={<ProtectedRoute user={user}/>}>
+                    <Route path="/admin" element={<Admin/>}/>
+                    <Route path="/play" element={<Play/>}/>
+                    <Route path="/result/:questionnumber" element={<PlayResult/>}/>
+                </Route>
+            </Routes>
+            <br/>
+            <br/>
+            <br/>
+            <Navigation/>
+        </>
+    );
 }
 
 export default App

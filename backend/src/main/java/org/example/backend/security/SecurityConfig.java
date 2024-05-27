@@ -1,6 +1,7 @@
 package org.example.backend.security;
 
 import org.example.backend.service.CustomOAuth2UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,9 +11,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
@@ -20,8 +18,16 @@ import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
     @Value("${app.url}")
     private String appUrl;
+
+    private final CustomOAuth2UserService customOAuth2UserService;
+
+    @Autowired
+    public SecurityConfig(CustomOAuth2UserService customOAuth2UserService) {
+        this.customOAuth2UserService = customOAuth2UserService;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -39,15 +45,9 @@ public class SecurityConfig {
                 .oauth2Login(o -> o
                         .defaultSuccessUrl(appUrl)
                         .userInfoEndpoint()
-                        .userService(customOAuth2UserService()));
+                        .userService(customOAuth2UserService));
 
         return http.build();
     }
-
-    @Bean
-    public OAuth2UserService<OAuth2UserRequest, OAuth2User> customOAuth2UserService() {
-        return new CustomOAuth2UserService();
-    }
 }
-
 
