@@ -33,6 +33,7 @@ function App() {
         const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin // checkt, wo wir uns gerade befinden
 
         window.open(host + '/oauth2/authorization/github', '_self')
+        alert("Du wirst angemeldet.")
     }
 
     //Ausloggen
@@ -40,6 +41,7 @@ function App() {
         const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
 
         window.open(host + '/logout', '_self')
+        alert("Du wirst abgemeldet.")
     }
 
 
