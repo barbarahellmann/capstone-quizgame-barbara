@@ -27,7 +27,7 @@ public class QuestionService {
                 newQuestion.wrongAnswer1(),
                 newQuestion.wrongAnswer2(),
                 newQuestion.wrongAnswer3(),
-                newQuestion.points()
+                newQuestion.isCorrect()
         );
         return repo.save(temp);
     }
@@ -43,7 +43,7 @@ public class QuestionService {
                 questionDTO.wrongAnswer1(),
                 questionDTO.wrongAnswer2(),
                 questionDTO.wrongAnswer3(),
-                questionDTO.points()
+                questionDTO.isCorrect()
         );
 
         return repo.save(updatedQuestion);

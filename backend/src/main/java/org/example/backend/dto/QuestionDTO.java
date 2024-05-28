@@ -6,7 +6,7 @@ public record QuestionDTO(
         String wrongAnswer1,
         String wrongAnswer2,
         String wrongAnswer3,
-        int points
+        boolean isCorrect
 
 ) {
 }
