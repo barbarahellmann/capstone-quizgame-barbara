@@ -62,7 +62,7 @@ function App() {
                 <Route path="/" element={<StartPage/>}/>
                 <Route element={<ProtectedRoute user={user}/>}>
                     <Route path="/play" element={<Play/>}/>
-                    <Route path="/result/:questionnumber" element={<PlayResult/>}/>
+                    <Route path="/result" element={<PlayResult/>}/>
                 </Route>
                 <Route element={<ProtectedAdminRoute user={user}/>}>
                     <Route path="/admin" element={<Admin/>}/>

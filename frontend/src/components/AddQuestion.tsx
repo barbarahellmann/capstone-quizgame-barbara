@@ -12,7 +12,7 @@ export default function AddQuestion() {
         wrongAnswer1: "",
         wrongAnswer2: "",
         wrongAnswer3: "",
-        points: 0,
+        isCorrect: false,
     });
 
     // Speichert bei jeder Zeicheneingabe die Information in setNewQuestion
@@ -33,7 +33,7 @@ export default function AddQuestion() {
                     wrongAnswer1: "",
                     wrongAnswer2: "",
                     wrongAnswer3: "",
-                    points: 0
+                    isCorrect: false,
                 })
                 alert("Frage wurde hinzugefügt.")
             })
@@ -73,12 +73,6 @@ export default function AddQuestion() {
                                                   onChange={handleChange}/>
                 </label>
                 <br/>
-                <label> Punkte: <input type="number" name="points" id="points" value={newQuestion.points}
-                                       onChange={handleChange}/>
-                </label>
-                <br/>
-
-
                 <button>Submit</button>
             </form>
 

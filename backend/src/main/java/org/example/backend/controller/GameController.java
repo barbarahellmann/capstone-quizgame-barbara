@@ -21,6 +21,7 @@ public class GameController {
 
     @GetMapping("/play")
     public List<Question> getRandomQuestions() {
+
         return gameService.getRandomQuestions(5);
     }
 }
