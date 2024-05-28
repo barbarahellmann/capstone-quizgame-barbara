@@ -24,7 +24,8 @@ export default function QuestionCard({question}: { question: Question }) {
             .then(response => {
                 console.log("Question updated successfully:" + response.data);
                 setEditing(false);
-                setQuestion(editedQuestion); // Update question prop with edited movie data
+                setQuestion(editedQuestion); // Update question prop with edited quiz data
+                alert("Frage wurde geändert")
             })
             .catch(error => console.error("Error while updating question:", error));
     };
@@ -33,6 +34,7 @@ export default function QuestionCard({question}: { question: Question }) {
         axios.delete("/api/quiz/" + question.id)
             .then((response) => {
                 console.log(response)
+                alert("Frage wird gelöscht.")
             })
             .catch((error) => {
                 console.log(error.message)
@@ -60,16 +62,17 @@ export default function QuestionCard({question}: { question: Question }) {
                         <input type="text" name="wrongAnswer3" value={editedQuestion.wrongAnswer3}
                                onChange={handleInputChange}/>
                         <br/>
-                        <input type="number" name="points" value={editedQuestion.points} onChange={handleInputChange}/>
+                        <input type="number" name="points" value={editedQuestion.points}
+                               onChange={handleInputChange}/>
                     </div>
                 ) : (
                     <div>
-                        {question.question} <br/>
-                        {question.correctAnswer} <br/>
-                        {question.wrongAnswer1} <br/>
-                        {question.wrongAnswer2} <br/>
-                        {question.wrongAnswer3} <br/>
-                        {question.points} <br/>
+                        {editedQuestion.question} <br/>
+                        {editedQuestion.correctAnswer} <br/>
+                        {editedQuestion.wrongAnswer1} <br/>
+                        {editedQuestion.wrongAnswer2} <br/>
+                        {editedQuestion.wrongAnswer3} <br/>
+                        {editedQuestion.points} <br/>
                     </div>
                 )}
             </div>
