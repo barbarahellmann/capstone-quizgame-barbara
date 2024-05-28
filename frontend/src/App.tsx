@@ -7,6 +7,7 @@ import StartPage from "./pages/StartPage.tsx";
 import axios from "axios";
 import {useEffect, useState} from "react";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import ProtectedAdminRoute from "./components/ProtectedAdminRoute.tsx";
 
 function App() {
 
@@ -60,9 +61,11 @@ function App() {
             <Routes>
                 <Route path="/" element={<StartPage/>}/>
                 <Route element={<ProtectedRoute user={user}/>}>
-                    <Route path="/admin" element={<Admin/>}/>
                     <Route path="/play" element={<Play/>}/>
                     <Route path="/result/:questionnumber" element={<PlayResult/>}/>
+                </Route>
+                <Route element={<ProtectedAdminRoute user={user}/>}>
+                    <Route path="/admin" element={<Admin/>}/>
                 </Route>
             </Routes>
             <br/>

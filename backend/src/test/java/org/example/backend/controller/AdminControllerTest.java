@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserServ
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -52,20 +53,20 @@ class AdminControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void getAdminData_withAdminRole_shouldReturnOk() throws Exception {
         // Perform the request as an admin
         mockMvc.perform(get("/api/admin")
-                        .principal(() -> "admin")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().string("Admin data"));
     }
 
     @Test
+    @WithMockUser(roles = "USER")
     void getAdminData_withUserRole_shouldReturnForbidden() throws Exception {
         // Perform the request as a regular user
         mockMvc.perform(get("/api/admin")
-                        .principal(() -> "user")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isForbidden());
     }
