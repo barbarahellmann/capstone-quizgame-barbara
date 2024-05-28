@@ -3,14 +3,14 @@ import {Question} from "../model/Question.ts";
 import axios from "axios";
 
 
-export default function Play() {
+export default function PlayAll() {
 
-    const [questions, setQuestions] = useState<Question[]>();
+    // Daten werden vom Server geladen
+    const [questions, setQuestions] = useState<Question[]>()
     const [question, setQuestion] = useState<Question>()
 
-
     function fetchQuestion() {
-        axios.get("/api/quiz/play")
+        axios.get("/api/quiz")
             .then(response => {
                 const apiQuestions: Question[] = response.data
                 const randomQuestionIndex = Math.floor((apiQuestions.length - 1) * Math.random())
@@ -22,7 +22,6 @@ export default function Play() {
     }
 
     useEffect(fetchQuestion, [])
-
 
     //Solange Daten nicht geladen sind, zeige lade
     if (!questions) {
@@ -37,17 +36,13 @@ export default function Play() {
 
     return (
         <>
-            {questions.map((question, index) => (
-                <div key={index}>
-                    <h2>{question.question}</h2>
-                    <br/>
-                    <button>{question.correctAnswer}</button>
-                    <button>{question.wrongAnswer1}</button>
-                    <br/>
-                    <button>{question.wrongAnswer2}</button>
-                    <button>{question.wrongAnswer3}</button>
-                </div>
-            ))}
+            <h2>{question.question}</h2>
+            <br/>
+            <button>{question.correctAnswer}</button>
+            <button>{question.wrongAnswer1}</button>
+            <br/>
+            <button>{question.wrongAnswer2}</button>
+            <button>{question.wrongAnswer3}</button>
         </>
     )
 }

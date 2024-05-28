@@ -19,7 +19,7 @@ public class GameController {
     // Repository wird injected
     private final GameService gameService;
 
-    @GetMapping("/random")
+    @GetMapping("/play")
     public List<Question> getRandomQuestions() {
         return gameService.getRandomQuestions(5);
     }

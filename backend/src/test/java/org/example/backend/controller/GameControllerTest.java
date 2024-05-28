@@ -49,7 +49,7 @@ class GameControllerTest {
 
         when(gameService.getRandomQuestions(5)).thenReturn(mockQuestions);
 
-        mockMvc.perform(get("/api/quiz/random")
+        mockMvc.perform(get("/api/quiz/play")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json("[{\"id\":\"1\",\"question\":\"Q1\",\"correctAnswer\":\"A1\",\"wrongAnswer1\":\"B1\",\"wrongAnswer2\":\"C1\",\"wrongAnswer3\":\"D1\",\"isCorrect\":false},{\"id\":\"2\",\"question\":\"Q2\",\"correctAnswer\":\"A2\",\"wrongAnswer1\":\"B2\",\"wrongAnswer2\":\"C2\",\"wrongAnswer3\":\"D2\",\"isCorrect\":false},{\"id\":\"3\",\"question\":\"Q3\",\"correctAnswer\":\"A3\",\"wrongAnswer1\":\"B3\",\"wrongAnswer2\":\"C3\",\"wrongAnswer3\":\"D3\",\"isCorrect\":false},{\"id\":\"4\",\"question\":\"Q4\",\"correctAnswer\":\"A4\",\"wrongAnswer1\":\"B4\",\"wrongAnswer2\":\"C4\",\"wrongAnswer3\":\"D4\",\"isCorrect\":false},{\"id\":\"5\",\"question\":\"Q5\",\"correctAnswer\":\"A5\",\"wrongAnswer1\":\"B5\",\"wrongAnswer2\":\"C5\",\"wrongAnswer3\":\"D5\",\"isCorrect\":false}]"));
