@@ -18,14 +18,12 @@ export default function Admin() {
                 const response = await axios.get('/api/auth/me');
                 const user = response.data;
 
-                if (user.id !== 'your-github-user-id') { // Ersetzen Sie "your-github-user-id" durch die tatsächliche Benutzer-ID
-                    alert('Sie können die Seite nicht öffnen');
+                if (user.id !== '162185130') { // Meine github-user-id
                     navigate('/');
                 }
             } catch (error) {
                 console.error('Error fetching user info:', error);
-                alert('Sie können die Seite nicht öffnen');
-                navigate('/');
+                navigate('/api/admin');
             }
         };
 

@@ -14,7 +14,7 @@ import java.util.Set;
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
-    private static final String ADMIN_GITHUB_USER_ID = "162185130";  // Replace with your GitHub user ID
+    private static final String ADMIN_GITHUB_USER_ID = "162185130";  // Meine GitHub user ID
 
     private DefaultOAuth2UserService delegate = new DefaultOAuth2UserService();
 

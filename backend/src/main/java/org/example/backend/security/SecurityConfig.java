@@ -24,17 +24,16 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(a -> a
-                        .requestMatchers("/api/play").authenticated()
-                        .requestMatchers("/api/admin").hasAuthority("ROLE_ADMIN") // Ensure this line is correct
-                        .requestMatchers("/api/result").authenticated()
+                        .requestMatchers("/api/play").authenticated() // Endpunkte angeben, um sie abzusichern, für nicht eingeloggte Nutzer
+                        .requestMatchers("/api/admin").hasAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/quiz").authenticated()
-                        .anyRequest().permitAll())
+                        .anyRequest().permitAll()) // permitAll definiert, dass Endpunkte offen sind, wie bspw. bei der Anmeldung
                 .logout(logout -> logout.logoutSuccessUrl(appUrl))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-                .oauth2Login(o -> o
-                        .defaultSuccessUrl(appUrl));
-
+                .sessionManagement(sessiontemp ->
+                        sessiontemp.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
+                .oauth2Login(o -> o.defaultSuccessUrl(appUrl));
         return http.build();
     }
 }
