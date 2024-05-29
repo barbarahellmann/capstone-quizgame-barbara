@@ -61,9 +61,6 @@ export default function QuestionCard({question}: { question: Question }) {
                         <br/>
                         <input type="text" name="wrongAnswer3" value={editedQuestion.wrongAnswer3}
                                onChange={handleInputChange}/>
-                        <br/>
-                        <input type="number" name="points" value={editedQuestion.points}
-                               onChange={handleInputChange}/>
                     </div>
                 ) : (
                     <div>
@@ -72,7 +69,6 @@ export default function QuestionCard({question}: { question: Question }) {
                         {editedQuestion.wrongAnswer1} <br/>
                         {editedQuestion.wrongAnswer2} <br/>
                         {editedQuestion.wrongAnswer3} <br/>
-                        {editedQuestion.points} <br/>
                     </div>
                 )}
             </div>

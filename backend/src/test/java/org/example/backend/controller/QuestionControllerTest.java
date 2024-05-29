@@ -47,11 +47,11 @@ class QuestionControllerTest {
         repo.save(new Question(
                 "1", "question1",
                 " Correct answer", "wrong answer 1",
-                "wrong answer2", "wrong answer 3", 200));
+                "wrong answer2", "wrong answer 3", false));
         repo.save(new Question(
                 "2", "question2",
                 " Correct answer", "wrong answer 1",
-                "wrong answer2", "wrong answer 3", 200));
+                "wrong answer2", "wrong answer 3", false));
 
         MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/api/quiz"))
                 .andExpect(status().isOk())
@@ -65,7 +65,7 @@ class QuestionControllerTest {
                                       "wrongAnswer1": "wrong answer 1",
                                       "wrongAnswer2": "wrong answer2",
                                       "wrongAnswer3": "wrong answer 3",
-                                      "points": 200
+                                                  "isCorrect": false
                         },
                         {
                                       "id": "2",
@@ -74,7 +74,7 @@ class QuestionControllerTest {
                                       "wrongAnswer1": "wrong answer 1",
                                       "wrongAnswer2": "wrong answer2",
                                       "wrongAnswer3": "wrong answer 3",
-                                      "points": 200
+                                                  "isCorrect": false
                         }
                     ]
                     """
@@ -96,7 +96,7 @@ class QuestionControllerTest {
                                             "wrongAnswer1": "wrong answer 1",
                                             "wrongAnswer2": "wrong answer2",
                                             "wrongAnswer3": "wrong answer 3",
-                                            "points": 200
+                                            "isCorrect": false
                                         }
                                 """)
                 )
@@ -109,7 +109,7 @@ class QuestionControllerTest {
                                     "wrongAnswer1": "wrong answer 1",
                                     "wrongAnswer2": "wrong answer2",
                                     "wrongAnswer3": "wrong answer 3",
-                                    "points": 200
+                                    "isCorrect": false
                                 }
                         """))
                 .andExpect(jsonPath("$.id").isNotEmpty());
@@ -121,7 +121,7 @@ class QuestionControllerTest {
     @DirtiesContext
     void postQuestion_shouldAddQuestion_whenCalledWithDTO() throws Exception {
         // GIVEN
-        Question existingQuestion = new Question("1", "question1", " Correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+        Question existingQuestion = new Question("1", "question1", " Correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", false);
 
         repo.save(existingQuestion);
 
@@ -135,7 +135,7 @@ class QuestionControllerTest {
                                                 "wrongAnswer1": "Updated wrong answer 1",
                                                 "wrongAnswer2": "Updated wrong answer2",
                                                 "wrongAnswer3": "Updated wrong answer 3",
-                                                "points": 2
+                                                "isCorrect": false
                                             }
                                 """))
                 //THEN
@@ -148,7 +148,7 @@ class QuestionControllerTest {
                                         "wrongAnswer1": "Updated wrong answer 1",
                                         "wrongAnswer2": "Updated wrong answer2",
                                         "wrongAnswer3": "Updated wrong answer 3",
-                                        "points": 2
+                                        "isCorrect": false
                                     }
                         """));
     }
@@ -157,7 +157,7 @@ class QuestionControllerTest {
     @DirtiesContext
     void getByID_shouldReturnQuestion_whenCalledWithId() throws Exception {
         //GIVEN
-        Question existingQuestion = new Question("1", "question1", " Correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+        Question existingQuestion = new Question("1", "question1", " Correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", false);
         repo.save(existingQuestion);
 
         //WHEN
@@ -173,7 +173,7 @@ class QuestionControllerTest {
                                 "wrongAnswer1": "wrong answer 1",
                                 "wrongAnswer2": "wrong answer2",
                                 "wrongAnswer3": "wrong answer 3",
-                                "points": 200
+                                "isCorrect": false
                             }
                         """));
     }
@@ -194,7 +194,7 @@ class QuestionControllerTest {
     @DirtiesContext
     void deleteQuestion_shouldReturnOk_whenQuestionDeleted() throws Exception {
         //GIVEN
-        Question existingQuestion = new Question("1", "question1", " Correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+        Question existingQuestion = new Question("1", "question1", " Correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", false);
         repo.save(existingQuestion);
 
         //WHEN

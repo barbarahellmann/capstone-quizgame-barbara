@@ -9,6 +9,6 @@ export default function ProtectedAdminRoute(props: ProtectRouteProps) {
     const isAuthenticated = props.user != undefined && props.user === 162185130
 
     return (
-        isAuthenticated ? <Outlet/> : <Navigate to={"/start"}/>
+        isAuthenticated ? <Outlet/> : <Navigate to={"/"}/>
     )
 }

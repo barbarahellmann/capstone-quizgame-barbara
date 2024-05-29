@@ -1,16 +1,15 @@
+import {useLocation} from "react-router-dom";
+
 export default function PlayResult() {
 
-    /* Questionnumber soll die Ergebnisseite für den jeweiligen Users anzeigen
-
-        const urlParams = useParams()
-        const questionnumber = urlParams.questionnumber;
-    */
+    const location = useLocation();
+    const {correctCount} = location.state || {correctCount: 0};
 
     return (
-        <>
-            <h1>NerdDuell</h1>
-            Anzahl der Punkte gewonnenen Punkte:
-            Anzahl Punkte gesamt:
-        </>
+        <div>
+            <h1>Ergebnisse</h1>
+            <p>Du hast {correctCount} von 5 Fragen richtig beantwortet.</p>
+            <button onClick={() => window.location.reload()}>Quiz neu starten</button>
+        </div>
     )
 }

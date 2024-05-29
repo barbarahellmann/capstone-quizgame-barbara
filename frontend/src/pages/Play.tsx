@@ -1,48 +1,98 @@
 import {useEffect, useState} from 'react';
 import {Question} from "../model/Question.ts";
 import axios from "axios";
-
+import {useNavigate} from "react-router-dom";
 
 export default function Play() {
+    // Speichert die Fragen und verfolgt die Fragen
+    const [questions, setQuestions] = useState<Question[]>([]);
+    const [index, setIndex] = useState<number>(0);
+    // Hält fest, ob die Frage beantwortet wurde
+    const [answered, setAnswered] = useState<boolean>(false);
 
-    // Daten werden vom Server geladen
-    const [questions, setQuestions] = useState<Question[]>()
-    const [question, setQuestion] = useState<Question>()
+    const [shuffledAnswers, setShuffledAnswers] = useState<{ text: string, isCorrect: boolean }[]>([]);
+    const nav = useNavigate();
+    // Punkte zählen
+    const [correctCount, setCorrectCount] = useState<number>(0);
+
+    useEffect(() => {
+        fetchQuestion();
+    }, []);
+
+    useEffect(() => {
+        if (questions.length > 0) {
+            shuffleAnswers();
+        }
+    }, [questions, index]);
 
     function fetchQuestion() {
-        axios.get("/api/quiz")
+        axios.get("/api/quiz/play")
             .then(response => {
-                const apiQuestions: Question[] = response.data
-                const randomQuestionIndex = Math.floor((apiQuestions.length - 1) * Math.random())
-                const nextQuestion = apiQuestions[randomQuestionIndex]
-
-                setQuestions(apiQuestions.filter(question => question.id !== nextQuestion.id))
-                setQuestion(nextQuestion)
-            })
+                setQuestions(response.data);
+            });
     }
 
-    useEffect(fetchQuestion, [])
-
-    //Solange Daten nicht geladen sind, zeige lade
-    if (!questions) {
-        return "Lade..."
+    function shuffleAnswers() {
+        const currentQuestion = questions[index];
+        const answers = [
+            {text: currentQuestion.correctAnswer, isCorrect: true},
+            {text: currentQuestion.wrongAnswer1, isCorrect: false},
+            {text: currentQuestion.wrongAnswer2, isCorrect: false},
+            {text: currentQuestion.wrongAnswer3, isCorrect: false},
+        ];
+        setShuffledAnswers(answers.sort(() => Math.random() - 0.5));
     }
 
-    if (!question) {
-        return null
+    // Wenn die Frage richtig beantwortet wurde, wird currentCount erhöht
+    function handleAnswerClick(isCorrect: boolean) {
+        if (!answered) {
+            setAnswered(true);
+            if (isCorrect) {
+                setCorrectCount(prevCount => prevCount + 1);
+            }
+        }
     }
 
-    console.log(questions)
+    // nach der letzten Frage wird correctCount an /result weitergegeben
+    function handleNextQuestion() {
+        const nextIndex = index + 1;
+        if (nextIndex < questions.length) {
+            setIndex(nextIndex);
+            setAnswered(false);
+        } else {
+            nav("/result", {state: {correctCount}});
+        }
+    }
+
+    if (questions.length === 0) {
+        return "Lade...";
+    }
 
     return (
-        <>
-            <h2>{question.question}</h2>
+        <div>
+            <h2>{questions[index].question}</h2>
             <br/>
-            <button>{question.correctAnswer}</button>
-            <button>{question.wrongAnswer1}</button>
-            <br/>
-            <button>{question.wrongAnswer2}</button>
-            <button>{question.wrongAnswer3}</button>
-        </>
-    )
+            {shuffledAnswers.map((answer, idx) => (
+                <button
+                    key={idx}
+                    onClick={() => handleAnswerClick(answer.isCorrect)}
+                    style={{
+                        backgroundColor: answered
+                            ? answer.isCorrect
+                                ? 'green'
+                                : 'red'
+                            : 'initial'
+                    }}
+                    disabled={answered}
+                >
+                    {answer.text}
+                </button>
+            ))}
+            {answered && (
+                <button onClick={handleNextQuestion}>
+                    {index + 1 < questions.length ? 'Nächste Frage' : 'Ergebnisse anzeigen'}
+                </button>
+            )}
+        </div>
+    );
 }

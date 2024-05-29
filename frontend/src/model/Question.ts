@@ -5,5 +5,5 @@ export type Question = {
     wrongAnswer1: string,
     wrongAnswer2: string,
     wrongAnswer3: string,
-    points: number,
+    isCorrect: boolean,
 }

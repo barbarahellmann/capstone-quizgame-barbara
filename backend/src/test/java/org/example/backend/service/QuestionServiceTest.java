@@ -23,9 +23,9 @@ class QuestionServiceTest {
     @Test
     void getAllQuestions_shouldReturnList() {
         //GIVEN
-        Question question1 = new Question("1", "question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
-        Question question2 = new Question("2", "question2", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
-        Question question3 = new Question("3", "question3", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+        Question question1 = new Question("1", "question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", false);
+        Question question2 = new Question("2", "question2", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", false);
+        Question question3 = new Question("3", "question3", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", false);
         List<Question> expected = List.of(question1, question2, question3);
 
         when(mockRepo.findAll()).thenReturn(expected);
@@ -42,8 +42,8 @@ class QuestionServiceTest {
     @Test
     void addQuestion_shouldReturnQuestion() {
         // GIVEN
-        QuestionDTO questionToAddAdd = new QuestionDTO("question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
-        Question expected = new Question("Test-Id1", "question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", 200);
+        QuestionDTO questionToAddAdd = new QuestionDTO("question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", false);
+        Question expected = new Question("Test-Id1", "question1", "correct answer", "wrong answer 1", "wrong answer2", "wrong answer 3", false);
         when(mockRepo.save(any(Question.class))).thenReturn(expected);
 
         //WHEN
@@ -58,9 +58,9 @@ class QuestionServiceTest {
     void updateQuestion_shouldUpdateQuestion_whenCalledWithDTO() {
         //GIVEN
         String id = "123";
-        QuestionDTO questionToUpdate = new QuestionDTO("Update1", "Update correct answer", "Update wrong answer 1", "Update wrong answer 2", "Update wrong answer 3", 3);
-        Question existingQuestion = new Question(id, "question1", "correct answer", "wrong answer 1", "wrong answer 2", "wrong answer 3", 200);
-        Question updatedQuestion = new Question(id, "Update1", "Update correct answer", "Update wrong answer 1", "Update wrong answer 2", "Update wrong answer 3", 3);
+        QuestionDTO questionToUpdate = new QuestionDTO("Update1", "Update correct answer", "Update wrong answer 1", "Update wrong answer 2", "Update wrong answer 3", false);
+        Question existingQuestion = new Question(id, "question1", "correct answer", "wrong answer 1", "wrong answer 2", "wrong answer 3", false);
+        Question updatedQuestion = new Question(id, "Update1", "Update correct answer", "Update wrong answer 1", "Update wrong answer 2", "Update wrong answer 3", false);
 
         when(mockRepo.findById(id)).thenReturn(Optional.of(existingQuestion));
         when(mockRepo.save(updatedQuestion)).thenReturn(updatedQuestion);
@@ -78,7 +78,7 @@ class QuestionServiceTest {
     void getQuestionById_shouldReturnQuestion_whenCalledWithId() {
         //GIVEN
         String id = "123";
-        Question question = new Question("123", "question1", "correct answer", "wrong answer 1", "wrong answer 2", "wrong answer 3", 200);
+        Question question = new Question("123", "question1", "correct answer", "wrong answer 1", "wrong answer 2", "wrong answer 3", false);
 
         when(mockRepo.findById(id)).thenReturn(Optional.of(question));
 
