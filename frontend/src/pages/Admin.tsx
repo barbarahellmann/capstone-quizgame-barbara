@@ -9,6 +9,7 @@ export default function Admin() {
     const [questionList, setQuestionList] = useState<Question[]>([]);
 
 
+    //Fragen laden
     function fetchQuestion() {
         axios.get("/api/quiz")
             .then((response) => {
@@ -19,13 +20,13 @@ export default function Admin() {
     // Durch [{}] wird gesagt, dass es der useEffect nur einmalig durchgeführt wird. Das fixt das Problem mit dem Reload beim speicher der Daten
     useEffect(() => {
         fetchQuestion()
-    }, [{}])
+    }, [])
 
     console.log(questionList);
 
     return (
         <>
-            <h2>Admin</h2>
+            <h2>Admin Bereich</h2>
             <AddQuestion/>
             <br/> <br/>
             <div>

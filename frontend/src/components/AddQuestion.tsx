@@ -35,7 +35,7 @@ export default function AddQuestion() {
                     wrongAnswer3: "",
                     points: 0
                 })
-                alert("Question was submitted")
+                alert("Frage wurde hinzugefügt.")
             })
             .catch((error) => {
                 console.log(error.message);
