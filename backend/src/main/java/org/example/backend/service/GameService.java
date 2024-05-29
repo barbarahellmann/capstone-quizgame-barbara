@@ -14,11 +14,10 @@ import java.util.stream.Collectors;
 public class GameService {
 
     private final QuestionRepository repo;
-
+    private final Random random = new Random();
 
     public List<Question> getRandomQuestions(int numberOfQuestions) {
         List<Question> allQuestions = repo.findAll();
-        Random random = new Random();
         return random.ints(0, allQuestions.size())
                 .distinct()
                 .limit(numberOfQuestions)
