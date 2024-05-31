@@ -1,18 +1,20 @@
-import Play from "./pages/Play.tsx";
-import Admin from "./pages/Admin.tsx";
-import {Route, Routes} from "react-router-dom";
-import PlayResult from "./pages/PlayResult.tsx";
-import Navigation from "./components/Navigation.tsx";
-import StartPage from "./pages/StartPage.tsx";
-import axios from "axios";
 import {useEffect, useState} from "react";
-import ProtectedRoute from "./components/ProtectedRoute.tsx";
-import ProtectedAdminRoute from "./components/ProtectedAdminRoute.tsx";
+import {Route, Routes, useLocation, useNavigate} from "react-router-dom";
+import axios from "axios";
+import Play from "./pages/Play";
+import Admin from "./pages/Admin";
+import PlayResult from "./pages/PlayResult";
+import Navigation from "./components/Navigation";
+import StartPage from "./pages/StartPage";
+import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedAdminRoute from "./components/ProtectedAdminRoute";
+import {AppBar, Box, Container, Toolbar} from "@mui/material";
+
 
 function App() {
-
-    // Login
     const [user, setUser] = useState<string | undefined>();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const loadUser = () => {
         axios.get('/api/auth/me')
@@ -25,39 +27,28 @@ function App() {
             });
     };
 
-    // User bleibt eingeloggt
     useEffect(() => {
-        loadUser()
-    }, [])
+        loadUser();
+    }, []);
 
-
-
-    function login() {
-        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin // checkt, wo wir uns gerade befinden
-
-        window.open(host + '/oauth2/authorization/github', '_self')
-        alert("Du wirst angemeldet.")
-    }
-
-    //Ausloggen
-    function logout() {
-        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
-
-        window.open(host + '/logout', '_self')
-        alert("Du wirst abgemeldet.")
-    }
-
+    const logout = () => {
+        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin;
+        window.open(host + '/logout', '_self');
+        alert("Du wirst abgemeldet.");
+        setUser(undefined);
+        navigate('/');
+    };
 
     return (
-        <>
-            <button onClick={login}>Login</button>
-            <button onClick={loadUser}>Me</button>
-            <button onClick={logout}>Logout</button>
-            <p>{user}</p>
+        <Container maxWidth="sm">
 
-            <h1>NerdDuell</h1>
-            <br/>
-            <br/>
+            <Box sx={{bgcolor: '#353B57', color: '#FFFFFF', minHeight: '100vh'}}>
+                <AppBar position="static" sx={{bgcolor: '#4C5270'}}>
+                    <Toolbar>
+
+                        <Navigation user={user} setUser={setUser}/>
+                    </Toolbar>
+                </AppBar>
             <Routes>
                 <Route path="/" element={<StartPage/>}/>
                 <Route element={<ProtectedRoute user={user}/>}>
@@ -68,12 +59,9 @@ function App() {
                     <Route path="/admin" element={<Admin/>}/>
                 </Route>
             </Routes>
-            <br/>
-            <br/>
-            <br/>
-            <Navigation/>
-        </>
+            </Box>
+        </Container>
     );
 }
 
-export default App
+export default App;

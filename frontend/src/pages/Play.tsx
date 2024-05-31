@@ -1,18 +1,15 @@
 import {useEffect, useState} from 'react';
-import {Question} from "../model/Question.ts";
+import {Question} from "../model/Question";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {Box, Button, Typography} from '@mui/material';
 
 export default function Play() {
-    // Speichert die Fragen und verfolgt die Fragen
     const [questions, setQuestions] = useState<Question[]>([]);
     const [index, setIndex] = useState<number>(0);
-    // Hält fest, ob die Frage beantwortet wurde
     const [answered, setAnswered] = useState<boolean>(false);
-
     const [shuffledAnswers, setShuffledAnswers] = useState<{ text: string, isCorrect: boolean }[]>([]);
     const nav = useNavigate();
-    // Punkte zählen
     const [correctCount, setCorrectCount] = useState<number>(0);
 
     useEffect(() => {
@@ -25,14 +22,14 @@ export default function Play() {
         }
     }, [questions, index]);
 
-    function fetchQuestion() {
+    const fetchQuestion = () => {
         axios.get("/api/quiz/play")
             .then(response => {
                 setQuestions(response.data);
             });
-    }
+    };
 
-    function shuffleAnswers() {
+    const shuffleAnswers = () => {
         const currentQuestion = questions[index];
         const answers = [
             {text: currentQuestion.correctAnswer, isCorrect: true},
@@ -41,20 +38,18 @@ export default function Play() {
             {text: currentQuestion.wrongAnswer3, isCorrect: false},
         ];
         setShuffledAnswers(answers.sort(() => Math.random() - 0.5));
-    }
+    };
 
-    // Wenn die Frage richtig beantwortet wurde, wird currentCount erhöht
-    function handleAnswerClick(isCorrect: boolean) {
+    const handleAnswerClick = (isCorrect: boolean) => {
         if (!answered) {
             setAnswered(true);
             if (isCorrect) {
                 setCorrectCount(prevCount => prevCount + 1);
             }
         }
-    }
+    };
 
-    // nach der letzten Frage wird correctCount an /result weitergegeben
-    function handleNextQuestion() {
+    const handleNextQuestion = () => {
         const nextIndex = index + 1;
         if (nextIndex < questions.length) {
             setIndex(nextIndex);
@@ -62,37 +57,41 @@ export default function Play() {
         } else {
             nav("/result", {state: {correctCount}});
         }
-    }
+    };
 
     if (questions.length === 0) {
         return "Lade...";
     }
 
     return (
-        <div>
-            <h2>{questions[index].question}</h2>
-            <br/>
-            {shuffledAnswers.map((answer, idx) => (
-                <button
-                    key={idx}
-                    onClick={() => handleAnswerClick(answer.isCorrect)}
-                    style={{
-                        backgroundColor: answered
-                            ? answer.isCorrect
-                                ? 'green'
-                                : 'red'
-                            : 'initial'
-                    }}
-                    disabled={answered}
-                >
-                    {answer.text}
-                </button>
-            ))}
+        <Box sx={{padding: 2, bgcolor: '#353B57', color: '#FFFFFF', minHeight: '100vh'}}>
+            <Typography variant="h4" component="h2" sx={{marginBottom: 2}}>{questions[index]?.question}</Typography>
+            <Box sx={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2}}>
+                {shuffledAnswers.map((answer, idx) => (
+                    <Button
+                        key={idx}
+                        onClick={() => handleAnswerClick(answer.isCorrect)}
+                        sx={{
+                            bgcolor: answered ? (answer.isCorrect ? '#7ED957' : '#FF5757') : 'primary.main',
+                            color: '#FFFFFF',
+                            '&:hover': {
+                                bgcolor: answered ? (answer.isCorrect ? '#7ED957' : '#FF5757') : 'primary.main',
+                                color: '#FFFFFF',
+                            }
+                        }}
+                        disabled={answered}
+                    >
+                        {answer.text}
+                    </Button>
+                ))}
+            </Box>
             {answered && (
-                <button onClick={handleNextQuestion}>
+                <Button onClick={handleNextQuestion} variant="contained"
+                        sx={{marginTop: 2, bgcolor: '#36EEE0', color: '#FFFFFF'}}>
                     {index + 1 < questions.length ? 'Nächste Frage' : 'Ergebnisse anzeigen'}
-                </button>
+                </Button>
             )}
-        </div>
+        </Box>
     );
 }
+
