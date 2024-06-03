@@ -1,23 +1,22 @@
-import Play from "./pages/Play.tsx";
-import Admin from "./pages/Admin.tsx";
-import {Route, Routes} from "react-router-dom";
-import PlayResult from "./pages/PlayResult.tsx";
-import Navigation from "./components/Navigation.tsx";
-import StartPage from "./pages/StartPage.tsx";
-import axios from "axios";
-import {useEffect, useState} from "react";
-import ProtectedRoute from "./components/ProtectedRoute.tsx";
-import ProtectedAdminRoute from "./components/ProtectedAdminRoute.tsx";
+import {useEffect, useState} from 'react';
+import {Route, Routes, useNavigate} from 'react-router-dom';
+import axios from 'axios';
+import Play from './pages/Play';
+import Admin from './pages/Admin';
+import PlayResult from './pages/PlayResult';
+import Header from './components/Header';
+import StartPage from './pages/StartPage';
+import ProtectedAdminRoute from './components/ProtectedAdminRoute';
+import Logout from './pages/Logout';
+import {Box} from '@mui/material';
 
-function App() {
-
-    // Login
+export default function App() {
     const [user, setUser] = useState<string | undefined>();
+    const navigate = useNavigate();
 
     const loadUser = () => {
         axios.get('/api/auth/me')
             .then(response => {
-                console.log(response.data);
                 setUser(response.data);
             })
             .catch(error => {
@@ -25,55 +24,24 @@ function App() {
             });
     };
 
-    // User bleibt eingeloggt
     useEffect(() => {
-        loadUser()
-    }, [])
-
-
-
-    function login() {
-        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin // checkt, wo wir uns gerade befinden
-
-        window.open(host + '/oauth2/authorization/github', '_self')
-        alert("Du wirst angemeldet.")
-    }
-
-    //Ausloggen
-    function logout() {
-        const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin
-
-        window.open(host + '/logout', '_self')
-        alert("Du wirst abgemeldet.")
-    }
+        loadUser();
+    }, []);
 
 
     return (
-        <>
-            <button onClick={login}>Login</button>
-            <button onClick={loadUser}>Me</button>
-            <button onClick={logout}>Logout</button>
-            <p>{user}</p>
-
-            <h1>NerdDuell</h1>
-            <br/>
-            <br/>
+        <Box sx={{bgcolor: '#353B57', color: '#FFFFFF', minHeight: '100vh'}}>
+            <Header user={user} setUser={setUser}/>
             <Routes>
                 <Route path="/" element={<StartPage/>}/>
-                <Route element={<ProtectedRoute user={user}/>}>
-                    <Route path="/play" element={<Play/>}/>
-                    <Route path="/result" element={<PlayResult/>}/>
-                </Route>
-                <Route element={<ProtectedAdminRoute user={162185130}/>}>
+                <Route path="/start" element={<StartPage/>}/>
+                <Route path="/play" element={<Play/>}/>
+                <Route path="/result" element={<PlayResult user={user}/>}/>
+                <Route path="/logout" element={<Logout/>}/>
+                <Route element={<ProtectedAdminRoute user={user}/>}>
                     <Route path="/admin" element={<Admin/>}/>
                 </Route>
             </Routes>
-            <br/>
-            <br/>
-            <br/>
-            <Navigation/>
-        </>
+        </Box>
     );
 }
-
-export default App
