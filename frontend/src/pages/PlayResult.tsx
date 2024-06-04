@@ -32,7 +32,7 @@ export default function PlayResult({user}: { user?: string }) {
             </Typography>
             {user === "anonymousUser" ? (
                 <div>
-                    <p>Logge dich ein, wenn du noch einmal Spielen möchtest.</p>
+                    <Typography variant="body1">Logge dich ein, wenn du noch einmal Spielen möchtest.</Typography>
                     <Button variant="contained" color="secondary" onClick={handleLogin}
                     >Login</Button>
                 </div>
