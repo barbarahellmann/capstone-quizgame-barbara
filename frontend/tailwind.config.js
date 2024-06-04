@@ -14,7 +14,18 @@ module.exports = {
         },
         extend: {
             colors: {
-                primary: "#36EEE0",
+                primary: "#4C5270",
+                secondary: "#F652A0",
+                correct: "#36EEE0",
+                wrong: "#C81C79",
+                white: "#FFFFFF",
+                dark: "#4C5270",
+                grey: "#4C5270",
+                light: "#BCECE0",
+                pink1: "#D73186",
+                pink2: "#FF68AC",
+
+                background: "#353B57",
             }
         },
     },
