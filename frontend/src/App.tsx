@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Route, Routes, useNavigate} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import axios from 'axios';
 import Play from './pages/Play';
 import Admin from './pages/Admin';
@@ -12,7 +12,6 @@ import {Box} from '@mui/material';
 
 export default function App() {
     const [user, setUser] = useState<string | undefined>();
-    const navigate = useNavigate();
 
     const loadUser = () => {
         axios.get('/api/auth/me')
