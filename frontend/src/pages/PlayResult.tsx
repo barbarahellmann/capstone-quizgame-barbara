@@ -11,6 +11,7 @@ export default function PlayResult({user}: { user?: string }) {
         window.open(host + '/oauth2/authorization/github', '_self');
     };
 
+    // Nach dem ersten Durchlauf beim Quiz muss man sich einloggen, Button Text wird im Frontend angepasst
     const handlePlayAgain = () => {
         if (user) {
             navigate('/play');
@@ -32,7 +33,7 @@ export default function PlayResult({user}: { user?: string }) {
                 Du hast {correctCount} von 5 Fragen richtig beantwortet.
             </Typography>
             <Button variant="contained" color="secondary" onClick={handlePlayAgain} sx={{marginBottom: 2}}>
-                Quiz neu starten
+                {user = "anonymousUser" ? 'Quiz neu starten' : 'Einloggen'}
             </Button>
         </Box>
     );

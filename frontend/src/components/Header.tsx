@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {AppBar, Button, IconButton, Toolbar, Typography} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import {useLocation, useNavigate} from 'react-router-dom';
 import Navigation from './Navigation';
+import axios from "axios";
 
 export default function Header({user, setUser}: {
     user?: string,
@@ -19,6 +20,22 @@ export default function Header({user, setUser}: {
         setIsDrawerOpen(open);
     };
 
+    const loadUser = () => {
+        axios.get('/api/auth/me')
+            .then(response => {
+                console.log(response.data);
+                setUser(response.data);
+            })
+            .catch(error => {
+                console.error('Error loading user:', error);
+            });
+    };
+
+    // User bleibt eingeloggt
+    useEffect(() => {
+        loadUser()
+    }, [])
+
     const handleLogin = () => {
         const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin;
         window.open(host + '/oauth2/authorization/github', '_self');
@@ -32,6 +49,7 @@ export default function Header({user, setUser}: {
         setUser(undefined);
         navigate('/logout');
     };
+
 
     return (
         <>
