@@ -119,21 +119,3 @@ export default function Play() {
         </Box>
     );
 }
-/*
-backgroundColor: answered
-    ? answer.isCorrect
-        ? 'mediumseagreen'
-        : 'palevioletred'
-    : '#9c27b0',
-    fontWeight: answered
-    ? answer.isCorrect
-        ? 'bold'
-        : 'initial'
-    : 'initial',
-    color: answered
-    ? answer.isCorrect
-        ? 'white'
-        : 'darkred'
-    : "white"
-}}
-*/

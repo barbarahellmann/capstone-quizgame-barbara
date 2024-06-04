@@ -1,4 +1,3 @@
-import {Link} from 'react-router-dom';
 import {Box, Button, Typography} from '@mui/material';
 
 export default function Logout() {
@@ -21,9 +20,6 @@ export default function Logout() {
                 abgemeldet.</Typography>
             <Button variant="contained" color="secondary" onClick={handleLogin} sx={{marginBottom: 2}}>
                 Login
-            </Button>
-            <Button variant="contained" color="secondary" component={Link} to="/">
-                Zurück zur Startseite
             </Button>
         </Box>
     );

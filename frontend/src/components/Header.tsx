@@ -1,16 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {AppBar, Button, IconButton, Toolbar, Typography} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import {useLocation, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import Navigation from './Navigation';
-import axios from "axios";
 
 export default function Header({user, setUser}: {
     user?: string,
     setUser: React.Dispatch<React.SetStateAction<string | undefined>>
 }) {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const location = useLocation();
     const navigate = useNavigate();
 
     const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -19,22 +17,6 @@ export default function Header({user, setUser}: {
         }
         setIsDrawerOpen(open);
     };
-
-    const loadUser = () => {
-        axios.get('/api/auth/me')
-            .then(response => {
-                console.log(response.data);
-                setUser(response.data);
-            })
-            .catch(error => {
-                console.error('Error loading user:', error);
-            });
-    };
-
-    // User bleibt eingeloggt
-    useEffect(() => {
-        loadUser()
-    }, [])
 
     const handleLogin = () => {
         const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin;
@@ -61,7 +43,7 @@ export default function Header({user, setUser}: {
                     <Typography variant="h6" component="h1" sx={{marginRight: 'auto', flexGrow: 1}}>
                         NerdQuiz
                     </Typography>
-                    {location.pathname === "/" ? (
+                    {user === "anonymousUser" ? (
                         <Button variant="contained" color="secondary" onClick={handleLogin}>Login</Button>
                     ) : (
                         user && <Button variant="contained" color="secondary" onClick={handleLogout}>Logout</Button>

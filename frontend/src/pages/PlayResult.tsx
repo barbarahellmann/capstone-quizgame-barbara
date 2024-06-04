@@ -13,7 +13,7 @@ export default function PlayResult({user}: { user?: string }) {
 
     // Nach dem ersten Durchlauf beim Quiz muss man sich einloggen, Button Text wird im Frontend angepasst
     const handlePlayAgain = () => {
-        if (user) {
+        if (user !== "anonymousUser") {
             navigate('/play');
         } else {
             handleLogin();
@@ -33,7 +33,7 @@ export default function PlayResult({user}: { user?: string }) {
                 Du hast {correctCount} von 5 Fragen richtig beantwortet.
             </Typography>
             <Button variant="contained" color="secondary" onClick={handlePlayAgain} sx={{marginBottom: 2}}>
-                {user = "anonymousUser" ? 'Quiz neu starten' : 'Einloggen'}
+                {user === "anonymousUser" ? 'Einloggen' : 'Quiz neu starten'}
             </Button>
         </Box>
     );

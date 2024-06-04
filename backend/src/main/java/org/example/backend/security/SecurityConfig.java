@@ -27,7 +27,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/admin").hasAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/quiz").authenticated()
                         .anyRequest().permitAll()) // permitAll definiert, dass Endpunkte offen sind, wie bspw. bei der Anmeldung
-                .logout(logout -> logout.logoutSuccessUrl(appUrl))
+                .logout(logout -> logout.logoutSuccessUrl(appUrl + "logout"))
                 .sessionManagement(sessiontemp ->
                         sessiontemp.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .exceptionHandling(exception -> exception
