@@ -39,7 +39,6 @@ export default function PlayResult({user}: { user?: string }) {
             ) : (
                 user && <Button variant="contained" color="secondary" onClick={handleStartNewQuiz}
                 >Neues Quiz starten</Button>
-
             )}
         </Box>
     );
