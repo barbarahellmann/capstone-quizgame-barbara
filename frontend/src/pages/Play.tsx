@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import {Question} from "../model/Question.ts";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {Button} from "@mui/material";
 
 export default function Play() {
     // Speichert die Fragen und verfolgt die Fragen
@@ -73,8 +74,8 @@ export default function Play() {
             <h2>{questions[index].question}</h2>
             <br/>
             {shuffledAnswers.map((answer, idx) => (
-                <button
-                    key={idx}
+                <Button variant="contained"
+                        key={idx}
                     onClick={() => handleAnswerClick(answer.isCorrect)}
                     style={{
                         backgroundColor: answered
@@ -86,7 +87,7 @@ export default function Play() {
                             ? answer.isCorrect
                                 ? 'bold'
                                 : 'initial'
-                            : 'medium',
+                            : 'initial',
                         color: answered
                             ? answer.isCorrect
                                 ? 'white'
@@ -96,10 +97,10 @@ export default function Play() {
                     disabled={answered}
                 >
                     {answer.text}
-                </button>
+                </Button>
             ))}
             {answered && (
-                <button onClick={handleNextQuestion}
+                <Button variant="contained" color="secondary" onClick={handleNextQuestion}
                         style={{
                             backgroundColor: "#9c27b0",
                             color: "white",
@@ -107,7 +108,7 @@ export default function Play() {
 
 
                     {index + 1 < questions.length ? 'Nächste Frage' : 'Ergebnisse anzeigen'}
-                </button>
+                </Button>
             )}
         </div>
     );

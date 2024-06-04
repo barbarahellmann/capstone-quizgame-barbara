@@ -39,7 +39,7 @@ export default function Header({user, setUser}: {
                         <MenuIcon/>
                     </IconButton>
                     <Typography variant="h6" component="h1" sx={{marginRight: 'auto', flexGrow: 1}}>
-                        NerdDuel
+                        NerdQuiz
                     </Typography>
                     {location.pathname === "/" ? (
                         <Button variant="contained" color="secondary" onClick={handleLogin}>Login</Button>
