@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom';
 import Navigation from './Navigation';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
-import logo1WOName from "../assets/logo1WOName.png";
+import logo_header from "../assets/logo_header.png";
 
 
 export default function Header({user, setUser}: {
@@ -51,7 +51,7 @@ export default function Header({user, setUser}: {
                     <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
                         <MenuIcon/>
                     </IconButton>
-                    <Avatar src={logo1WOName} alt="Logo" sx={{marginRight: 2}}/>
+                    <Avatar src={logo_header} alt="Logo" sx={{marginRight: 2}}/>
                     <Typography variant="h6" component="h1" sx={{marginRight: 'auto', flexGrow: 1}}>
                         NerdQuiz
                     </Typography>

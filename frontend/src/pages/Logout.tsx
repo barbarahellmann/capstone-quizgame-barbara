@@ -1,5 +1,5 @@
 import {Box, Button, Typography} from '@mui/material';
-import logo_light from "../assets/logo_light.png";
+import LogoWOTitel_Content from "../assets/LogoWOTitel_Content.png";
 
 export default function Logout() {
     const handleLogin = () => {
@@ -17,7 +17,7 @@ export default function Logout() {
             backgroundColor: "background",
             color: "white"
         }}>
-            <img src={logo_light} alt="Logo" style={{height: '300px', marginBottom: '20px'}}/>
+            <img src={LogoWOTitel_Content} alt="Logo" style={{height: '300px', marginBottom: '20px'}}/>
             <Typography variant="h3" component="h3" sx={{marginBottom: 4}}>Du hast dich erfolgreich
                 abgemeldet.</Typography>
             <Button variant="contained" color="secondary" onClick={handleLogin} sx={{marginBottom: 2}}>
