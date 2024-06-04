@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import {Question} from "../model/Question.ts";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import {Box, Button, Grid, Typography} from "@mui/material";
 
 export default function Play() {
     // Speichert die Fragen und verfolgt die Fragen
@@ -69,30 +70,52 @@ export default function Play() {
     }
 
     return (
-        <div>
-            <h2>{questions[index].question}</h2>
-            <br/>
-            {shuffledAnswers.map((answer, idx) => (
-                <button
-                    key={idx}
-                    onClick={() => handleAnswerClick(answer.isCorrect)}
-                    style={{
-                        backgroundColor: answered
-                            ? answer.isCorrect
-                                ? 'green'
-                                : 'red'
-                            : 'initial'
-                    }}
-                    disabled={answered}
-                >
-                    {answer.text}
-                </button>
-            ))}
+        <Box className="flex flex-col items-center p-4 mx-4">
+            <Typography variant="h5" component="h2" align="center" marginBottom={2}>
+                {questions[index].question}
+            </Typography>
+            <Grid container spacing={2} justifyContent="center">
+                {shuffledAnswers.map((answer, idx) => (
+                    <Grid item xs={12} sm={6} key={idx}>
+                        <Button
+                            onClick={() => handleAnswerClick(answer.isCorrect)}
+                            style={{
+                                backgroundColor: answered
+                                    ? answer.isCorrect
+                                        ? 'mediumseagreen'
+                                        : 'palevioletred'
+                                    : '#1976d2',
+                                fontWeight: answered
+                                    ? answer.isCorrect
+                                        ? 'bold'
+                                        : 'initial'
+                                    : 'initial',
+                                color: answered
+                                    ? answer.isCorrect
+                                        ? 'white'
+                                        : 'darkred'
+                                    : "white",
+                                margin: '0.5rem',
+                            }}
+                            disabled={answered}
+                            fullWidth
+                            variant="contained"
+                        >
+                            {answer.text}
+                        </Button>
+                    </Grid>
+                ))}
+            </Grid>
             {answered && (
-                <button onClick={handleNextQuestion}>
+                <Button
+                    onClick={handleNextQuestion}
+                    style={{marginTop: '1rem', alignSelf: 'center'}}
+                    variant="contained"
+                    color="primary"
+                >
                     {index + 1 < questions.length ? 'Nächste Frage' : 'Ergebnisse anzeigen'}
-                </button>
+                </Button>
             )}
-        </div>
+        </Box>
     );
 }

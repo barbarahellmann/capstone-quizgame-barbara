@@ -1,14 +1,11 @@
 import {Navigate, Outlet} from "react-router-dom";
 
-type ProtectRouteProps = {
-    user: number | undefined
-}
+type ProtectAdminRouteProps = {
+    user: string | undefined;
+};
 
-export default function ProtectedAdminRoute(props: ProtectRouteProps) {
+export default function ProtectedAdminRoute({user}: ProtectAdminRouteProps) {
+    const isAdmin = user !== undefined && parseInt(user) === 162185130;
 
-    const isAuthenticated = props.user != undefined && props.user === 162185130
-
-    return (
-        isAuthenticated ? <Outlet/> : <Navigate to={"/"}/>
-    )
+    return isAdmin ? <Outlet/> : <Navigate to="/"/>;
 }
