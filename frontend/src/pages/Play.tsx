@@ -79,9 +79,19 @@ export default function Play() {
                     style={{
                         backgroundColor: answered
                             ? answer.isCorrect
-                                ? 'green'
-                                : 'red'
-                            : 'initial'
+                                ? 'mediumseagreen'
+                                : 'palevioletred'
+                            : '#9c27b0',
+                        fontWeight: answered
+                            ? answer.isCorrect
+                                ? 'bold'
+                                : 'initial'
+                            : 'medium',
+                        color: answered
+                            ? answer.isCorrect
+                                ? 'white'
+                                : 'darkred'
+                            : "white"
                     }}
                     disabled={answered}
                 >
@@ -89,7 +99,13 @@ export default function Play() {
                 </button>
             ))}
             {answered && (
-                <button onClick={handleNextQuestion}>
+                <button onClick={handleNextQuestion}
+                        style={{
+                            backgroundColor: "#9c27b0",
+                            color: "white",
+                        }}>
+
+
                     {index + 1 < questions.length ? 'Nächste Frage' : 'Ergebnisse anzeigen'}
                 </button>
             )}

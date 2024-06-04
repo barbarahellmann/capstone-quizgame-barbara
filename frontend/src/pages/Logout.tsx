@@ -14,8 +14,8 @@ export default function Logout() {
             alignItems: 'center',
             justifyContent: 'center',
             height: '100vh',
-            bgcolor: '#353B57',
-            color: '#FFFFFF'
+            backgroundColor: "background",
+            color: "white"
         }}>
             <Typography variant="h3" component="h3" sx={{marginBottom: 4}}>Du hast dich erfolgreich
                 abgemeldet.</Typography>
