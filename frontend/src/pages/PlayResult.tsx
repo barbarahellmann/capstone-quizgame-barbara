@@ -26,7 +26,6 @@ export default function PlayResult({user}: { user?: string }) {
             alignItems: 'center',
             justifyContent: 'center',
             height: '100vh',
-            bgcolor: '#353B57'
         }}>
             <Typography variant="h1" component="h1" sx={{color: '#FFFFFF', marginBottom: 4}}>Ergebnisse</Typography>
             <Typography variant="body1" sx={{color: '#FFFFFF', marginBottom: 4}}>

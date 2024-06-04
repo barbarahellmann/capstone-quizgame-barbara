@@ -1,7 +1,7 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {AppBar, Button, IconButton, Toolbar, Typography} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import {useLocation} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import Navigation from './Navigation';
 
 export default function Header({user, setUser}: {
@@ -10,6 +10,7 @@ export default function Header({user, setUser}: {
 }) {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate();
 
     const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
         if (event && event.type === 'keydown' && ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')) {
@@ -29,6 +30,7 @@ export default function Header({user, setUser}: {
         window.open(host + '/logout', '_self');
         alert("Du wirst abgemeldet.");
         setUser(undefined);
+        navigate('/logout');
     };
 
     return (
