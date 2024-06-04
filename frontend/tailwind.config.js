@@ -19,7 +19,6 @@ module.exports = {
                 correct: "#36EEE0",
                 wrong: "#C81C79",
                 white: "#FFFFFF",
-                dark: "#4C5270",
                 light: "#BCECE0",
                 pink1: "#D73186",
                 pink2: "#FF68AC",

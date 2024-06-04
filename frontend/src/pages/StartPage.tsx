@@ -13,6 +13,8 @@ export default function StartPage() {
             bgcolor: '#353B57'
         }}>
             <img src={logo_dark} alt="Logo" style={{height: '300px', marginBottom: '20px'}}/>
+            <p>Tauche ein in die Welt des NerdQuiz! Teste dein Wissen in einem spannenden Quiz voller nerdiger Fragen
+                und zeige, dass du der ultimative Nerd bist! Bereit für die Herausforderung?</p>
             <Button variant="contained" color="secondary"
                     component={Link} to="/play" sx={{marginBottom: 2}}>
                 Quiz starten
