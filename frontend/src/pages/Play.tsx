@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {Question} from "../model/Question.ts";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import {Box, Button, Grid, Stack, Typography} from "@mui/material";
+import {Box, Button, Grid, LinearProgress, Stack, Typography} from "@mui/material";
 
 export default function Play() {
     // Speichert die Fragen und verfolgt die Fragen
@@ -69,8 +69,14 @@ export default function Play() {
         return "Lade...";
     }
 
+    const progress = ((index) / questions.length) * 100;
+
     return (
         <Box className="flex flex-col items-center p-4 mx-4">
+            <Typography variant="h5" component="h2" align="center" marginBottom={2} marginTop={2}>
+                Frage {index + 1} von {questions.length}
+            </Typography>
+            <LinearProgress variant="determinate" value={progress} sx={{width: '100%', marginBottom: 2}}/>
             <Typography variant="h5" component="h2" align="center" marginBottom={2} marginTop={2}>
                 {questions[index].question}
             </Typography>
@@ -111,7 +117,16 @@ export default function Play() {
                 <Stack display="block" marginTop={6}>
                     <Button
                         onClick={handleNextQuestion}
-                        style={{marginTop: '1rem', alignSelf: 'center', justifyContent: "center"}}
+                        sx={{
+                            marginTop: '1rem',
+                            alignSelf: 'center',
+                            justifyContent: "center",
+                            transition: 'transform 0.3s, background-color 0.3s',
+                            '&:hover': {
+                                transform: 'scale(1.05)',
+                                backgroundColor: '#1976d2',
+                            },
+                        }}
                         variant="contained"
                         color="primary"
                     >
