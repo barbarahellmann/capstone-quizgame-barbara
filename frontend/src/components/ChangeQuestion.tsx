@@ -90,6 +90,8 @@ export default function QuestionCard({question}: { question: Question }) {
                             onChange={handleInputChange}
                             fullWidth
                             margin="normal"
+                            multiline
+                            rows={2}
                         />
                         <TextField
                             name="correctAnswer"
