@@ -1,6 +1,9 @@
 import {Question} from "../model/Question.ts";
-import {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import axios from "axios";
+import {Box, IconButton, TextField, Typography} from "@mui/material";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditIcon from '@mui/icons-material/Edit';
 
 export default function QuestionCard({question}: { question: Question }) {
 
@@ -41,40 +44,75 @@ export default function QuestionCard({question}: { question: Question }) {
             })
     }
 
+
     return (
-        <div>
-            <h3>Fragen ändern</h3>
-            <div>
+        <Box sx={{
+            display: 'center',
+            flexDirection: 'left',
+            alignItems: 'left',
+            justifyContent: 'left',
+            color: "white"
+        }}>
+            <Box mb={2}>
+
+                <Box>
                 {editing ? (
-                    <div>
-                        <input type="text" name="question" value={editedQuestion.question}
-                               onChange={handleInputChange}/>
-                        <br/>
-                        <input type="text" name="correctAnswer" value={editedQuestion.correctAnswer}
-                               onChange={handleInputChange}/>
-                        <br/>
-                        <input type="text" name="wrongAnswer1" value={editedQuestion.wrongAnswer1}
-                               onChange={handleInputChange}/>
-                        <br/>
-                        <input type="text" name="wrongAnswer2" value={editedQuestion.wrongAnswer2}
-                               onChange={handleInputChange}/>
-                        <br/>
-                        <input type="text" name="wrongAnswer3" value={editedQuestion.wrongAnswer3}
-                               onChange={handleInputChange}/>
-                    </div>
+                    <Box>
+                        <TextField
+                            name="question"
+                            value={editedQuestion.question}
+                            onChange={handleInputChange}
+                            fullWidth
+                            margin="normal"
+                        />
+                        <TextField
+                            name="correctAnswer"
+                            value={editedQuestion.correctAnswer}
+                            onChange={handleInputChange}
+                            fullWidth
+                            margin="normal"
+                        />
+                        <TextField
+                            name="wrongAnswer1"
+                            value={editedQuestion.wrongAnswer1}
+                            onChange={handleInputChange}
+                            fullWidth
+                            margin="normal"
+                        />
+                        <TextField
+                            name="wrongAnswer2"
+                            value={editedQuestion.wrongAnswer2}
+                            onChange={handleInputChange}
+                            fullWidth
+                            margin="normal"
+                        />
+                        <TextField
+                            name="wrongAnswer3"
+                            value={editedQuestion.wrongAnswer3}
+                            onChange={handleInputChange}
+                            fullWidth
+                            margin="normal"
+                        />
+                    </Box>
                 ) : (
-                    <div>
-                        {editedQuestion.question} <br/>
-                        {editedQuestion.correctAnswer} <br/>
-                        {editedQuestion.wrongAnswer1} <br/>
-                        {editedQuestion.wrongAnswer2} <br/>
-                        {editedQuestion.wrongAnswer3} <br/>
-                    </div>
+                    <Box>
+                        <Typography>{editedQuestion.question}</Typography>
+                        <Typography>{editedQuestion.correctAnswer}</Typography>
+                        <Typography>{editedQuestion.wrongAnswer1}</Typography>
+                        <Typography>{editedQuestion.wrongAnswer2}</Typography>
+                        <Typography>{editedQuestion.wrongAnswer3}</Typography>
+                    </Box>
                 )}
-            </div>
-            <button onClick={deleteQuestion}>❌</button>
-            <button onClick={editing ? handleSave : handleEdit}>{editing ? 'Save' : 'Edit'}</button>
-            <br/> <br/>
-        </div>
+                </Box>
+                <IconButton onClick={deleteQuestion} variant="contained" color="error">
+                    <DeleteForeverIcon/>
+                </IconButton>
+                <IconButton onClick={editing ? handleSave : () => setEditing(true)} variant="contained"
+                            color="primary">{editing ? 'Save' : <EditIcon/>}
+
+                </IconButton>
+            </Box>
+        </Box>
     )
 }
+

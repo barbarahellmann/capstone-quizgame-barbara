@@ -3,13 +3,12 @@ import QuestionCard from "../components/ChangeQuestion.tsx";
 import {useEffect, useState} from "react";
 import {Question} from "../model/Question.ts";
 import axios from "axios";
+import {Box, Typography} from "@mui/material";
 
 export default function Admin() {
-
     const [questionList, setQuestionList] = useState<Question[]>([]);
 
-
-    //Fragen laden
+    // Load questions
     function fetchQuestion() {
         axios.get("/api/quiz")
             .then((response) => {
@@ -17,7 +16,7 @@ export default function Admin() {
             })
     }
 
-    // Durch [{}] wird gesagt, dass es der useEffect nur einmalig durchgeführt wird. Das fixt das Problem mit dem Reload beim speicher der Daten
+    // Run useEffect only once to fetch data
     useEffect(() => {
         fetchQuestion()
     }, [])
@@ -26,14 +25,14 @@ export default function Admin() {
 
     return (
         <>
-            <h2>Admin Bereich</h2>
+            <Typography variant="h2" gutterBottom>Admin Bereich</Typography>
             <AddQuestion/>
-            <br/> <br/>
-            <div>
+            <Typography variant="h3">Fragen ändern</Typography>
+            <Box mt={4}>
                 {questionList.map((question: Question) => (
-                    <QuestionCard question={question}/>
+                    <QuestionCard key={question.id} question={question}/>
                 ))}
-            </div>
+            </Box>
         </>
     )
 }

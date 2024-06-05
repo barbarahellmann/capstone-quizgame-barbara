@@ -1,6 +1,5 @@
+import {Box, Button, Fade, Typography} from '@mui/material';
 import {useLocation, useNavigate} from 'react-router-dom';
-import {Box, Button, keyframes, Typography} from '@mui/material';
-
 
 export default function PlayResult({user}: { user?: string }) {
     const location = useLocation();
@@ -18,29 +17,6 @@ export default function PlayResult({user}: { user?: string }) {
         navigate('/play');
     };
 
-
-    const fadeIn = keyframes`
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    `;
-
-    const fadeInDelayed = keyframes`
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    `;
-
     return (
         <Box sx={{
             display: 'flex',
@@ -49,43 +25,45 @@ export default function PlayResult({user}: { user?: string }) {
             justifyContent: 'center',
             height: '100vh',
         }}>
-            <Typography variant="h2" component="h2" sx={{
-                color: '#FFFFFF',
-                marginBottom: 4,
-                animation: `${fadeIn} 1s ease-in-out`
-            }}>Ergebnis</Typography>
-            <Typography variant="body1" sx={{
-                textAlign: 'center',
-                animation: `${fadeIn} 1s ease-in-out 0.5s`,
-                animationFillMode: 'forwards'
-            }}>
-                Du hast {correctCount} von 5 Fragen richtig beantwortet.
-            </Typography>
-            {user === "anonymousUser" ? (
-                <Box sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginTop: 6,
-                    animation: `${fadeInDelayed} 1s ease-in-out 1s`,
-                    animationFillMode: 'forwards'
+            <Fade in={true} timeout={1000}>
+                <Typography variant="h2" component="h2" sx={{
+                    color: '#FFFFFF',
+                    marginBottom: 4
+                }}>Ergebnis</Typography>
+            </Fade>
+            <Fade in={true} timeout={1500}>
+                <Typography variant="body1" sx={{
+                    textAlign: 'center',
                 }}>
-                    <Typography variant="body1" sx={{textAlign: 'center'}}>
-                        Logge dich ein, wenn du noch einmal spielen möchtest.
-                    </Typography>
-                    <Button variant="contained" color="secondary" sx={{marginTop: 2}} onClick={handleLogin}>
-                        Login
-                    </Button>
-                </Box>
+                    Du hast {correctCount} von 5 Fragen richtig beantwortet.
+                </Typography>
+            </Fade>
+            {user === "anonymousUser" ? (
+                <Fade in={true} timeout={2000}>
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginTop: 6
+                    }}>
+                        <Typography variant="body1" sx={{textAlign: 'center'}}>
+                            Logge dich ein, wenn du noch einmal spielen möchtest.
+                        </Typography>
+                        <Button variant="contained" color="secondary" sx={{marginTop: 2}} onClick={handleLogin}>
+                            Login
+                        </Button>
+                    </Box>
+                </Fade>
             ) : (
-                user && <Button variant="contained" color="secondary" sx={{
-                    marginTop: 4,
-                    animation: `${fadeInDelayed} 1s ease-in-out 1s`,
-                    animationFillMode: 'forwards'
-                }} onClick={handleStartNewQuiz}>
-                    Neues Quiz starten
-                </Button>
+                user &&
+                <Fade in={true} timeout={2000}>
+                    <Button variant="contained" color="secondary" sx={{
+                        marginTop: 4
+                    }} onClick={handleStartNewQuiz}>
+                        Neues Quiz starten
+                    </Button>
+                </Fade>
             )}
         </Box>
     );
