@@ -84,10 +84,10 @@ export default function Header({user, setUser}: {
                     boxShadow: 24,
                     p: 4,
                 }}>
-                    <Typography id="modal-title" variant="h6" component="h2">
+                    <Typography id="modal-title" variant="h6" component="h2" sx={{color: "#4C5270"}}>
                         Hinweis
                     </Typography>
-                    <Typography id="modal-description" sx={{mt: 2}}>
+                    <Typography id="modal-description" sx={{mt: 2, color: "#4C5270"}}>
                         {modalMessage}
                     </Typography>
                 </Box>
