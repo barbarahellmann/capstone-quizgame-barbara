@@ -34,7 +34,7 @@ export default function Admin() {
             paddingLeft: 6,
             color: 'white'
         }}>
-            <Typography variant="h5" align={"center"}>Admin Bereich</Typography>
+            <Typography variant="h5" paddingTop={2} align={"center"}>Admin Bereich</Typography>
             <Divider sx={{
                 paddingTop: 4,
                 color: 'white'
