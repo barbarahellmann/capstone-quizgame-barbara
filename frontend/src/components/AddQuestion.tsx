@@ -79,6 +79,8 @@ export default function AddQuestion() {
                     variant="filled"
                     color="primary"
                     InputLabelProps={{style: {color: 'white'}}}
+                    multiline
+                    rows={2}
                 />
                 <TextField
                     name="correctAnswer"
@@ -124,9 +126,9 @@ export default function AddQuestion() {
                     color="primary"
                     InputLabelProps={{style: {color: 'white'}}}
                 />
-                <Button type="submit" variant="contained" color="primary" style={{marginTop: 20}}>Submit</Button>
+                <Button type="submit" variant="contained" color="primary" style={{marginTop: 2}}>Submit</Button>
             </form>
-            <Alert severity={alert.severity} onClose={handleCloseAlert} sx={{marginTop: 20}}
+            <Alert severity={alert.severity} onClose={handleCloseAlert} sx={{marginTop: 2}}
                    style={{visibility: alert.open ? 'visible' : 'hidden'}}>
                 {alert.message}
             </Alert>

@@ -74,11 +74,11 @@ export default function QuestionCard({question}: { question: Question }) {
 
     return (
         <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: "white"
+            display: 'center',
+            flexDirection: 'left',
+            alignItems: 'left',
+            justifyContent: 'left',
+            mb: 2
         }}>
             <Box mb={2}>
                 <Box>
