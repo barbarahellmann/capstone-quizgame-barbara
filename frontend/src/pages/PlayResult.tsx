@@ -26,19 +26,28 @@ export default function PlayResult({user}: { user?: string }) {
             justifyContent: 'center',
             height: '100vh',
         }}>
-            <Typography variant="h1" component="h1" sx={{color: '#FFFFFF', marginBottom: 4}}>Ergebnisse</Typography>
-            <Typography variant="body1" sx={{color: '#FFFFFF', marginBottom: 4}}>
+            <Typography variant="h2" component="h2" sx={{color: '#FFFFFF', marginBottom: 4}}>Ergebnis</Typography>
+            <Typography variant="body1" sx={{textAlign: 'center'}}>
                 Du hast {correctCount} von 5 Fragen richtig beantwortet.
             </Typography>
             {user === "anonymousUser" ? (
-                <div>
-                    <Typography variant="body1">Logge dich ein, wenn du noch einmal Spielen möchtest.</Typography>
-                    <Button variant="contained" color="secondary" onClick={handleLogin}
-                    >Login</Button>
-                </div>
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginTop: 6,
+                }}>
+                    <Typography variant="body1" sx={{textAlign: 'center'}}>Logge dich ein, wenn du noch einmal spielen
+                        möchtest.</Typography>
+                    <Button variant="contained" color="secondary" sx={{marginTop: 2}} onClick={handleLogin}>
+                        Login
+                    </Button>
+                </Box>
             ) : (
-                user && <Button variant="contained" color="secondary" onClick={handleStartNewQuiz}
-                >Neues Quiz starten</Button>
+                user && <Button variant="contained" color="secondary" sx={{marginTop: 4}} onClick={handleStartNewQuiz}>
+                    Neues Quiz starten
+                </Button>
             )}
         </Box>
     );

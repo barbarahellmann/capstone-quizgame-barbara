@@ -10,14 +10,17 @@ export default function StartPage() {
             alignItems: 'center',
             justifyContent: 'center',
             height: '100vh',
-            bgcolor: '#353B57'
         }}>
-            <img src={LogoTitel_Content} alt="Logo" style={{height: '300px', marginBottom: '20px'}}/>
-            <Typography variant="body1">Tauche ein in die Welt des NerdQuiz! Teste dein Wissen in einem spannenden Quiz
-                voller nerdiger Fragen
-                und zeige, dass du der ultimative Nerd bist! Bereit für die Herausforderung?</Typography>
+            <img src={LogoTitel_Content} alt="Logo" style={{height: '300px', marginTop: 4}}/>
+            <Typography variant="body1" sx={{textAlign: 'center'}}>
+                Tauche ein in die Welt des NerdQuiz!
+            </Typography>
+            <Typography variant="body1" sx={{textAlign: 'center'}}>
+                Teste dein Wissen in einem spannenden Quiz voller nerdiger Fragen
+                und zeige, dass du der ultimative Nerd bist! Bereit für die Herausforderung?
+            </Typography>
             <Button variant="contained" color="secondary"
-                    component={Link} to="/play" sx={{marginBottom: 2}}>
+                    component={Link} to="/play" sx={{marginTop: 6, marginBottom: 2}}>
                 Quiz starten
             </Button>
         </Box>
