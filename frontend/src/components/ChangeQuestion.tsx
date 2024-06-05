@@ -74,10 +74,10 @@ export default function QuestionCard({question}: { question: Question }) {
 
     return (
         <Box sx={{
-            display: 'center',
-            flexDirection: 'left',
-            alignItems: 'left',
-            justifyContent: 'left',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
             color: "white"
         }}>
             <Box mb={2}>
@@ -122,8 +122,8 @@ export default function QuestionCard({question}: { question: Question }) {
                     </Box>
                 ) : (
                     <Box>
-                        <Typography>Frage: {editedQuestion.question}</Typography>
-                        <Typography>Richtige Antwort: {editedQuestion.correctAnswer}</Typography>
+                        <Typography>{editedQuestion.question}</Typography>
+                        <Typography sx={{marginTop: 2}}>Richtige Antwort: {editedQuestion.correctAnswer}</Typography>
                         <Typography>Falsche Antwort: {editedQuestion.wrongAnswer1}</Typography>
                         <Typography>Falsche Antwort: {editedQuestion.wrongAnswer2}</Typography>
                         <Typography>Falsche Antwort: {editedQuestion.wrongAnswer3}</Typography>
@@ -138,7 +138,13 @@ export default function QuestionCard({question}: { question: Question }) {
                 </IconButton>
                 <Divider orientation="horizontal" variant="middle" flexItem/>
             </Box>
-            <Alert severity={alert.severity} onClose={handleCloseAlert} sx={{marginTop: 20}}
+            <Alert severity={alert.severity} onClose={handleCloseAlert}
+                   sx={{
+                       position: 'absolute',
+                       left: '50%',
+                       transform: 'translate(-50%, -50%)',
+                       zIndex: 9999,
+                   }}
                    style={{visibility: alert.open ? 'visible' : 'hidden'}}>
                 {alert.message}
             </Alert>
