@@ -1,7 +1,7 @@
 import {ChangeEvent, FormEvent, useState} from 'react';
 import axios from "axios";
 import {Question} from "../model/Question.ts";
-import {Box, Button, TextField} from '@mui/material';
+import {Alert, Box, Button, TextField} from '@mui/material';
 
 export default function AddQuestion() {
     const [newQuestion, setNewQuestion] = useState<Question>({
@@ -14,6 +14,11 @@ export default function AddQuestion() {
         isCorrect: false,
     });
 
+    const [alert, setAlert] = useState({
+        open: false,
+        severity: 'success',
+        message: ''
+    });
     function handleChange(event: ChangeEvent<HTMLInputElement>) {
         const key = event.target.name;
         setNewQuestion({...newQuestion, [key]: event.target.value});
@@ -32,12 +37,25 @@ export default function AddQuestion() {
                     wrongAnswer3: "",
                     isCorrect: false,
                 });
-                alert("Frage wurde hinzugefügt.");
+                setAlert({
+                    open: true,
+                    severity: 'success',
+                    message: 'Frage wurde hinzugefügt.'
+                });
             })
             .catch((error) => {
                 console.log(error.message);
+                setAlert({
+                    open: true,
+                    severity: 'error',
+                    message: 'Error: Frage konnte nicht hinzugefügt werden.'
+                });
             });
     }
+
+    const handleCloseAlert = () => {
+        setAlert({...alert, open: false});
+    };
 
     return (
         <Box
@@ -60,7 +78,7 @@ export default function AddQuestion() {
                     margin="normal"
                     variant="filled"
                     color="primary"
-                    InputLabelProps={{style: {color: 'white'}}} // Change label color to white
+                    InputLabelProps={{style: {color: 'white'}}}
                 />
                 <TextField
                     name="correctAnswer"
@@ -71,7 +89,7 @@ export default function AddQuestion() {
                     margin="normal"
                     variant="filled"
                     color="primary"
-                    InputLabelProps={{style: {color: 'white'}}} // Change label color to white
+                    InputLabelProps={{style: {color: 'white'}}}
                 />
                 <TextField
                     name="wrongAnswer1"
@@ -82,7 +100,7 @@ export default function AddQuestion() {
                     margin="normal"
                     variant="filled"
                     color="primary"
-                    InputLabelProps={{style: {color: 'white'}}} // Change label color to white
+                    InputLabelProps={{style: {color: 'white'}}}
                 />
                 <TextField
                     name="wrongAnswer2"
@@ -93,7 +111,7 @@ export default function AddQuestion() {
                     margin="normal"
                     variant="filled"
                     color="primary"
-                    InputLabelProps={{style: {color: 'white'}}} // Change label color to white
+                    InputLabelProps={{style: {color: 'white'}}}
                 />
                 <TextField
                     name="wrongAnswer3"
@@ -104,11 +122,14 @@ export default function AddQuestion() {
                     margin="normal"
                     variant="filled"
                     color="primary"
-                    InputLabelProps={{style: {color: 'white'}}} // Change label color to white
+                    InputLabelProps={{style: {color: 'white'}}}
                 />
-                <Button type="submit" variant="contained" color="primary"
-                        style={{marginTop: 20}}>Submit</Button>
+                <Button type="submit" variant="contained" color="primary" style={{marginTop: 20}}>Submit</Button>
             </form>
+            <Alert severity={alert.severity} onClose={handleCloseAlert} sx={{marginTop: 20}}
+                   style={{visibility: alert.open ? 'visible' : 'hidden'}}>
+                {alert.message}
+            </Alert>
         </Box>
     );
 }
