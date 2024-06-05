@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {Question} from "../model/Question.ts";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import {Box, Button, Grid, Typography} from "@mui/material";
+import {Box, Button, Grid, Stack, Typography} from "@mui/material";
 
 export default function Play() {
     // Speichert die Fragen und verfolgt die Fragen
@@ -71,12 +71,12 @@ export default function Play() {
 
     return (
         <Box className="flex flex-col items-center p-4 mx-4">
-            <Typography variant="h5" component="h2" align="center" marginBottom={2}>
+            <Typography variant="h5" component="h2" align="center" marginBottom={2} marginTop={2}>
                 {questions[index].question}
             </Typography>
             <Grid container spacing={2} justifyContent="center">
                 {shuffledAnswers.map((answer, idx) => (
-                    <Grid item xs={12} sm={6} key={idx}>
+                    <Grid item xs={10} sm={5} key={idx}>
                         <Button
                             onClick={() => handleAnswerClick(answer.isCorrect)}
                             style={{
@@ -106,16 +106,20 @@ export default function Play() {
                     </Grid>
                 ))}
             </Grid>
+            <Grid container spacing={1} justifyContent="center">
             {answered && (
-                <Button
-                    onClick={handleNextQuestion}
-                    style={{marginTop: '1rem', alignSelf: 'center'}}
-                    variant="contained"
-                    color="primary"
-                >
-                    {index + 1 < questions.length ? 'Nächste Frage' : 'Ergebnisse anzeigen'}
-                </Button>
+                <Stack display="block" marginTop={6}>
+                    <Button
+                        onClick={handleNextQuestion}
+                        style={{marginTop: '1rem', alignSelf: 'center', justifyContent: "center"}}
+                        variant="contained"
+                        color="primary"
+                    >
+                        {index + 1 < questions.length ? 'Nächste Frage' : 'Ergebnisse anzeigen'}
+                    </Button>
+                </Stack>
             )}
+            </Grid>
         </Box>
     );
 }

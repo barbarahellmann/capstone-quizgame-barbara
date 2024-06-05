@@ -1,6 +1,7 @@
 import {useLocation, useNavigate} from 'react-router-dom';
 import {Box, Button, Typography} from '@mui/material';
 
+
 export default function PlayResult({user}: { user?: string }) {
     const location = useLocation();
     const {correctCount} = location.state || {correctCount: 0};
@@ -8,16 +9,13 @@ export default function PlayResult({user}: { user?: string }) {
 
     const handleLogin = () => {
         const host = window.location.host === 'localhost:5173' ? 'http://localhost:8080' : window.location.origin;
-        window.open(host + '/oauth2/authorization/github', '_self');
+        setTimeout(() => {
+            window.open(host + '/oauth2/authorization/github', '_self');
+        }, 1000);
     };
 
-    // Nach dem ersten Durchlauf beim Quiz muss man sich einloggen, Button Text wird im Frontend angepasst
-    const handlePlayAgain = () => {
-        if (user !== "anonymousUser") {
-            navigate('/play');
-        } else {
-            handleLogin();
-        }
+    const handleStartNewQuiz = () => {
+        navigate('/play');
     };
 
     return (
@@ -32,9 +30,16 @@ export default function PlayResult({user}: { user?: string }) {
             <Typography variant="body1" sx={{color: '#FFFFFF', marginBottom: 4}}>
                 Du hast {correctCount} von 5 Fragen richtig beantwortet.
             </Typography>
-            <Button variant="contained" color="secondary" onClick={handlePlayAgain} sx={{marginBottom: 2}}>
-                {user === "anonymousUser" ? 'Einloggen' : 'Quiz neu starten'}
-            </Button>
+            {user === "anonymousUser" ? (
+                <div>
+                    <Typography variant="body1">Logge dich ein, wenn du noch einmal Spielen möchtest.</Typography>
+                    <Button variant="contained" color="secondary" onClick={handleLogin}
+                    >Login</Button>
+                </div>
+            ) : (
+                user && <Button variant="contained" color="secondary" onClick={handleStartNewQuiz}
+                >Neues Quiz starten</Button>
+            )}
         </Box>
     );
 }
