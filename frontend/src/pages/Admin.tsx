@@ -30,15 +30,19 @@ export default function Admin() {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            paddingLeft: 6
+            paddingRight: 6,
+            paddingLeft: 6,
+            color: 'white'
         }}>
-            <Typography variant="h2" align={"center"}>Admin Bereich</Typography>
+            <Typography variant="h5" align={"center"}>Admin Bereich</Typography>
             <Divider sx={{
-                paddingTop: 6
+                paddingTop: 4,
+                color: 'white'
             }}>Frage hinzufügen</Divider>
             <AddQuestion/>
             <Divider sx={{
-                paddingTop: 6
+                paddingTop: 6,
+                color: 'white'
             }}>Fragen ändern</Divider>
             <Box mt={4}>
                 {questionList.map((question: Question) => (
