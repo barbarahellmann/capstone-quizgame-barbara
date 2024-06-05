@@ -1,9 +1,10 @@
 import {Question} from "../model/Question.ts";
-import React, {ChangeEvent, useState} from "react";
+import {ChangeEvent, useState} from "react";
 import axios from "axios";
 import {Box, IconButton, TextField, Typography} from "@mui/material";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
+import Divider from "@mui/material/Divider";
 
 export default function QuestionCard({question}: { question: Question }) {
 
@@ -109,8 +110,8 @@ export default function QuestionCard({question}: { question: Question }) {
                 </IconButton>
                 <IconButton onClick={editing ? handleSave : () => setEditing(true)} variant="contained"
                             color="primary">{editing ? 'Save' : <EditIcon/>}
-
                 </IconButton>
+                <Divider orientation="horizontal" variant="middle" flexItem/>
             </Box>
         </Box>
     )

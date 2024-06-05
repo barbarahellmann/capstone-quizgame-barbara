@@ -4,6 +4,8 @@ import {useEffect, useState} from "react";
 import {Question} from "../model/Question.ts";
 import axios from "axios";
 import {Box, Typography} from "@mui/material";
+import Divider from '@mui/material/Divider';
+
 
 export default function Admin() {
     const [questionList, setQuestionList] = useState<Question[]>([]);
@@ -24,15 +26,25 @@ export default function Admin() {
     console.log(questionList);
 
     return (
-        <>
-            <Typography variant="h2" gutterBottom>Admin Bereich</Typography>
+        <Box sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            paddingLeft: 6
+        }}>
+            <Typography variant="h2" align={"center"}>Admin Bereich</Typography>
+            <Divider sx={{
+                paddingTop: 6
+            }}>Frage hinzufügen</Divider>
             <AddQuestion/>
-            <Typography variant="h3">Fragen ändern</Typography>
+            <Divider sx={{
+                paddingTop: 6
+            }}>Fragen ändern</Divider>
             <Box mt={4}>
                 {questionList.map((question: Question) => (
                     <QuestionCard key={question.id} question={question}/>
                 ))}
             </Box>
-        </>
+        </Box>
     )
 }

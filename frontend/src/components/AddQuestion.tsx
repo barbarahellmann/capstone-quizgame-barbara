@@ -1,7 +1,7 @@
 import {ChangeEvent, FormEvent, useState} from 'react';
 import axios from "axios";
 import {Question} from "../model/Question.ts";
-import {Box, Button, TextField, Typography} from '@mui/material';
+import {Box, Button, TextField} from '@mui/material';
 
 export default function AddQuestion() {
     const [newQuestion, setNewQuestion] = useState<Question>({
@@ -40,9 +40,17 @@ export default function AddQuestion() {
     }
 
     return (
-        <Box>
-            <Typography variant="h3">Frage hinzufügen:</Typography>
-            <form onSubmit={handleSubmit}>
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: "white",
+                padding: "20px",
+            }}
+        >
+            <form onSubmit={handleSubmit} style={{width: '100%'}}>
                 <TextField
                     name="question"
                     label="Frage"
@@ -50,6 +58,9 @@ export default function AddQuestion() {
                     onChange={handleChange}
                     fullWidth
                     margin="normal"
+                    variant="filled"
+                    color="primary"
+                    InputLabelProps={{style: {color: 'white'}}} // Change label color to white
                 />
                 <TextField
                     name="correctAnswer"
@@ -58,6 +69,9 @@ export default function AddQuestion() {
                     onChange={handleChange}
                     fullWidth
                     margin="normal"
+                    variant="filled"
+                    color="primary"
+                    InputLabelProps={{style: {color: 'white'}}} // Change label color to white
                 />
                 <TextField
                     name="wrongAnswer1"
@@ -66,6 +80,9 @@ export default function AddQuestion() {
                     onChange={handleChange}
                     fullWidth
                     margin="normal"
+                    variant="filled"
+                    color="primary"
+                    InputLabelProps={{style: {color: 'white'}}} // Change label color to white
                 />
                 <TextField
                     name="wrongAnswer2"
@@ -74,6 +91,9 @@ export default function AddQuestion() {
                     onChange={handleChange}
                     fullWidth
                     margin="normal"
+                    variant="filled"
+                    color="primary"
+                    InputLabelProps={{style: {color: 'white'}}} // Change label color to white
                 />
                 <TextField
                     name="wrongAnswer3"
@@ -82,9 +102,13 @@ export default function AddQuestion() {
                     onChange={handleChange}
                     fullWidth
                     margin="normal"
+                    variant="filled"
+                    color="primary"
+                    InputLabelProps={{style: {color: 'white'}}} // Change label color to white
                 />
-                <Button type="submit" variant="contained" color="primary">Submit</Button>
+                <Button type="submit" variant="contained" color="primary"
+                        style={{marginTop: 20}}>Submit</Button>
             </form>
         </Box>
-    )
+    );
 }
