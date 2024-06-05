@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {AppBar, Avatar, Box, Button, IconButton, Modal, Toolbar, Typography} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Navigation from './Navigation';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
@@ -51,7 +51,9 @@ export default function Header({user, setUser}: {
                     <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
                         <MenuIcon/>
                     </IconButton>
-                    <Avatar src={logo_header} alt="Logo" sx={{marginRight: 2}}/>
+                    <Link to="/start">
+                        <Avatar src={logo_header} alt="Logo" sx={{marginRight: 2}}/>
+                    </Link>
                     <Typography variant="h6" component="h1" sx={{marginRight: 'auto', flexGrow: 1}}>
                         NerdQuiz
                     </Typography>
