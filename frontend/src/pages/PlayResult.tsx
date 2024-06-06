@@ -1,6 +1,5 @@
+import {Box, Button, Fade, Typography} from '@mui/material';
 import {useLocation, useNavigate} from 'react-router-dom';
-import {Box, Button, Typography} from '@mui/material';
-
 
 export default function PlayResult({user}: { user?: string }) {
     const location = useLocation();
@@ -26,19 +25,45 @@ export default function PlayResult({user}: { user?: string }) {
             justifyContent: 'center',
             height: '100vh',
         }}>
-            <Typography variant="h1" component="h1" sx={{color: '#FFFFFF', marginBottom: 4}}>Ergebnisse</Typography>
-            <Typography variant="body1" sx={{color: '#FFFFFF', marginBottom: 4}}>
-                Du hast {correctCount} von 5 Fragen richtig beantwortet.
-            </Typography>
+            <Fade in={true} timeout={1000}>
+                <Typography variant="h2" component="h2" sx={{
+                    color: '#FFFFFF',
+                    marginBottom: 4
+                }}>Ergebnis</Typography>
+            </Fade>
+            <Fade in={true} timeout={1500}>
+                <Typography variant="body1" sx={{
+                    textAlign: 'center',
+                }}>
+                    Du hast {correctCount} von 5 Fragen richtig beantwortet.
+                </Typography>
+            </Fade>
             {user === "anonymousUser" ? (
-                <div>
-                    <Typography variant="body1">Logge dich ein, wenn du noch einmal Spielen möchtest.</Typography>
-                    <Button variant="contained" color="secondary" onClick={handleLogin}
-                    >Login</Button>
-                </div>
+                <Fade in={true} timeout={2000}>
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginTop: 6
+                    }}>
+                        <Typography variant="body1" sx={{textAlign: 'center'}}>
+                            Logge dich ein, wenn du noch einmal spielen möchtest.
+                        </Typography>
+                        <Button variant="contained" color="secondary" sx={{marginTop: 2}} onClick={handleLogin}>
+                            Login
+                        </Button>
+                    </Box>
+                </Fade>
             ) : (
-                user && <Button variant="contained" color="secondary" onClick={handleStartNewQuiz}
-                >Neues Quiz starten</Button>
+                user &&
+                <Fade in={true} timeout={2000}>
+                    <Button variant="contained" color="secondary" sx={{
+                        marginTop: 4
+                    }} onClick={handleStartNewQuiz}>
+                        Neues Quiz starten
+                    </Button>
+                </Fade>
             )}
         </Box>
     );

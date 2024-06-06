@@ -1,8 +1,17 @@
 import {Link} from "react-router-dom";
-import {Box, Button, Typography} from "@mui/material";
+import {Box, Button, keyframes, Typography} from "@mui/material";
 import LogoTitel_Content from "../assets/LogoTitel_Content.png";
 
 export default function StartPage() {
+    const blink = keyframes`
+        0%, 100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.5;
+        }
+    `;
+
     return (
         <Box sx={{
             display: 'flex',
@@ -10,14 +19,21 @@ export default function StartPage() {
             alignItems: 'center',
             justifyContent: 'center',
             height: '100vh',
-            bgcolor: '#353B57'
         }}>
-            <img src={LogoTitel_Content} alt="Logo" style={{height: '300px', marginBottom: '20px'}}/>
-            <Typography variant="body1">Tauche ein in die Welt des NerdQuiz! Teste dein Wissen in einem spannenden Quiz
-                voller nerdiger Fragen
-                und zeige, dass du der ultimative Nerd bist! Bereit für die Herausforderung?</Typography>
+            <img src={LogoTitel_Content} alt="Logo" style={{height: '300px', marginTop: 4}}/>
+            <Typography variant="body1" sx={{textAlign: 'center'}}>
+                Tauche ein in die Welt des NerdQuiz!
+            </Typography>
+            <Typography variant="body1" sx={{textAlign: 'center'}}>
+                Teste dein Wissen in einem spannenden Quiz voller nerdiger Fragen
+                und zeige, dass du der ultimative Nerd bist! Bereit für die Herausforderung?
+            </Typography>
             <Button variant="contained" color="secondary"
-                    component={Link} to="/play" sx={{marginBottom: 2}}>
+                    component={Link} to="/play" sx={{
+                marginTop: 6,
+                marginBottom: 2,
+                animation: `${blink} 5s infinite`
+            }}>
                 Quiz starten
             </Button>
         </Box>

@@ -17,7 +17,7 @@ export default function Navigation({isDrawerOpen, toggleDrawer}: NavigationProps
                     height: '100%',
                     padding: 2,
                     bgcolor: '#FFFFFF'
-                }} // Setze die Hintergrundfarbe hier und auf die gesamte Höhe
+                }} // Set the background color here and to the entire height
                 role="presentation"
                 onClick={toggleDrawer(false)}
                 onKeyDown={toggleDrawer(false)}
@@ -26,13 +26,42 @@ export default function Navigation({isDrawerOpen, toggleDrawer}: NavigationProps
                     Navigation
                 </Typography>
                 <List>
-                    <ListItem component={Link} to="/">
+                    <ListItem
+                        component={Link}
+                        to="/"
+                        sx={{
+                            '&:hover': {
+                                backgroundColor: '#E0E0E0',
+                                color: '#000000',
+                            }
+                        }}
+                    >
                         <ListItemText primary="Startseite"/>
                     </ListItem>
-                    <ListItem component={Link} to="/play">
+                    <ListItem
+                        component={Link}
+                        to="/play"
+                        sx={{
+                            '&:hover': {
+                                backgroundColor: '#E0E0E0',
+                                color: '#000000',
+                            }
+                        }}
+                    >
                         <ListItemText primary="Zum Quiz"/>
                     </ListItem>
-                    <ListItem component={Link} to="/admin">
+                    {/* Divider */}
+                    <Box sx={{borderTop: '1px solid #000000', marginTop: 2, marginBottom: 2}}></Box>
+                    <ListItem
+                        component={Link}
+                        to="/admin"
+                        sx={{
+                            '&:hover': {
+                                backgroundColor: '#E0E0E0', // Adjust the background color on hover
+                                color: '#000000', // Adjust the text color on hover
+                            }
+                        }}
+                    >
                         <ListItemIcon sx={{minWidth: '30px'}}><LockIcon/></ListItemIcon>
                         <ListItemText primary="Admin"/>
                     </ListItem>
