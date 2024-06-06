@@ -1,7 +1,7 @@
 import {ChangeEvent, FormEvent, useState} from 'react';
 import axios from "axios";
 import {Question} from "../model/Question.ts";
-import {Alert, Box, Button, TextField} from '@mui/material';
+import {Alert, AlertColor, Box, Button, TextField} from '@mui/material';
 
 export default function AddQuestion() {
     const [newQuestion, setNewQuestion] = useState<Question>({
@@ -14,9 +14,9 @@ export default function AddQuestion() {
         isCorrect: false,
     });
 
-    const [alert, setAlert] = useState({
+    const [alert, setAlert] = useState<{ open: boolean, severity: AlertColor, message: string }>({
         open: false,
-        severity: 'success',
+        severity: "success",
         message: ''
     });
     function handleChange(event: ChangeEvent<HTMLInputElement>) {
