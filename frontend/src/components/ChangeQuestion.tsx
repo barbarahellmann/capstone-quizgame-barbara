@@ -1,7 +1,7 @@
 import {Question} from "../model/Question.ts";
 import {ChangeEvent, useState} from "react";
 import axios from "axios";
-import {Alert, Box, IconButton, TextField, Typography} from "@mui/material";
+import {Alert, AlertColor, Box, IconButton, TextField, Typography} from "@mui/material";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import Divider from "@mui/material/Divider";
@@ -9,7 +9,7 @@ import Divider from "@mui/material/Divider";
 export default function QuestionCard({question}: { question: Question }) {
     const [editing, setEditing] = useState(false);
     const [editedQuestion, setEditedQuestion] = useState(question);
-    const [alert, setAlert] = useState({
+    const [alert, setAlert] = useState<{ open: boolean, severity: AlertColor, message: string }>({
         open: false,
         severity: 'success',
         message: ''
@@ -132,10 +132,10 @@ export default function QuestionCard({question}: { question: Question }) {
                     </Box>
                 )}
                 </Box>
-                <IconButton onClick={deleteQuestion} variant="contained" color="error">
+                <IconButton onClick={deleteQuestion} color="error">
                     <DeleteForeverIcon/>
                 </IconButton>
-                <IconButton onClick={editing ? handleSave : handleEdit} variant="contained" color="primary">
+                <IconButton onClick={editing ? handleSave : handleEdit} color="primary">
                     {editing ? 'Save' : <EditIcon/>}
                 </IconButton>
                 <Divider orientation="horizontal" variant="middle" flexItem/>
